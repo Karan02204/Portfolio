@@ -3,86 +3,98 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 
+const TOTAL_FRAMES = 240;
+
+// Uses Cloudinary f_auto,q_auto to compress and optimize images on the fly!
+function getFramePath(index: number): string {
+  const n = String(index).padStart(3, "0");
+  return `https://res.cloudinary.com/dcwryqkis/image/upload/f_auto,q_auto/ezgif-frame-${n}.png`;
+}
+
+export function useImageSequence() {
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const imgs: HTMLImageElement[] = [];
+    let loadedCount = 0;
+
+    // Allocate all forms up front to keep index 1:1 mapping safe
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        const img = new Image();
+        imgs.push(img);
+    }
+    setImages(imgs);
+
+    // Initial buffer load blocks the app until ready
+    const INITIAL_FRAMES = 40;
+    for (let i = 1; i <= INITIAL_FRAMES; i++) {
+      const img = imgs[i - 1];
+      
+      const onLoad = () => {
+        loadedCount++;
+        setProgress(loadedCount / INITIAL_FRAMES);
+        
+        if (loadedCount === INITIAL_FRAMES) {
+          setLoaded(true);
+        }
+      };
+
+      img.onload = onLoad;
+      img.onerror = onLoad; // move forward even on error
+      
+      img.src = getFramePath(i);
+    }
+  }, []);
+
+  // Background stream remaining frames after the initial frames are loaded
+  useEffect(() => {
+    if (loaded && images.length === TOTAL_FRAMES) {
+      for (let i = 41; i <= TOTAL_FRAMES; i++) {
+        images[i - 1].src = getFramePath(i);
+      }
+    }
+  }, [loaded, images]);
+
+  return { images, loaded, progress, totalFrames: TOTAL_FRAMES };
+}
+
 export default function ScrollyCanvas({
-  numFrames = 240, // Updated to match sequence2 frame count
-  startFrame = 0,
+  numFrames = TOTAL_FRAMES,
+  startFrame = 0, // eslint-disable-line @typescript-eslint/no-unused-vars
 }: {
   numFrames?: number;
   startFrame?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
   
-  // Connect to scroll
-  // We track the scroll over the entire container which will be 500vh
-  // but this component itself is sticky.
+  // Use our optimized hook
+  const { images, loaded: isLoaded, progress } = useImageSequence();
+  
   const { scrollYProgress } = useScroll();
-  
-  // Determine current frame based on scroll 0-1
-  // We map 0-1 to 0-(numFrames-1)
   const currentFrame = useTransform(scrollYProgress, [0, 1], [0, numFrames - 1]);
   
-  // Preload images
-  useEffect(() => {
-    const loadImages = async () => {
-      const loadedImages: HTMLImageElement[] = [];
-      const imagePromises: Promise<void>[] = [];
-
-      for (let i = 0; i < numFrames; i++) {
-        const promise = new Promise<void>((resolve, reject) => {
-          const img = new Image();
-          // Construct filename: ezgif-frame-001.png
-          // Images in sequence2 are 1-indexed
-          const frameIndex = (i + 1).toString().padStart(3, "0");
-          img.src = `/sequence2/ezgif-frame-${frameIndex}.png`;
-          
-          img.onload = () => {
-            loadedImages[i] = img;
-            resolve();
-          };
-          img.onerror = (e) => {
-            console.error(`Failed to load frame ${i}`, e);
-             // Resolve anyway to avoid blocking everything, maybe show placeholder?
-            resolve();
-          };
-        });
-        imagePromises.push(promise);
-      }
-
-      await Promise.all(imagePromises);
-      setImages(loadedImages);
-      setIsLoaded(true);
-    };
-
-    loadImages();
-  }, [numFrames]);
-
-  // Render loop
   const renderScale = (index: number) => {
     const canvas = canvasRef.current;
-    if (!canvas || !images[index]) return;
+    // Check if the image exists, has loaded completely, and has dimensions
+    if (!canvas || !images[index] || !images[index].complete || images[index].naturalWidth === 0) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Clear and draw
     const img = images[index];
-    
-    // Calculate aspect ratio for object-fit: cover
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
     
     let drawWidth, drawHeight, offsetX, offsetY;
     
     if (imgRatio > canvasRatio) {
-        // Image is wider than canvas
         drawHeight = canvas.height;
         drawWidth = img.width * (canvas.height / img.height);
         offsetX = (canvas.width - drawWidth) / 2;
         offsetY = 0;
     } else {
-        // Image is taller or equal
         drawWidth = canvas.width;
         drawHeight = img.height * (canvas.width / img.width);
         offsetX = 0;
@@ -93,7 +105,6 @@ export default function ScrollyCanvas({
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
 
-  // Update on scroll change
   useMotionValueEvent(currentFrame, "change", (latest) => {
     if (!isLoaded || images.length === 0) return;
     const frameIndex = Math.min(
@@ -103,13 +114,11 @@ export default function ScrollyCanvas({
     requestAnimationFrame(() => renderScale(frameIndex));
   });
 
-  // Handle Resize
   useEffect(() => {
     const handleResize = () => {
       if (canvasRef.current) {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
-        // Re-render current frame
         const frameIndex = Math.floor(currentFrame.get());
         if (isLoaded && images.length > 0) {
             renderScale(frameIndex);
@@ -118,7 +127,7 @@ export default function ScrollyCanvas({
     };
     
     window.addEventListener("resize", handleResize);
-    handleResize(); // Init
+    handleResize(); 
     
     return () => window.removeEventListener("resize", handleResize);
   }, [isLoaded, images, currentFrame]);
@@ -127,13 +136,18 @@ export default function ScrollyCanvas({
     <div className="sticky top-0 h-screen w-full overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="block h-full w-full"
+        className="block h-full w-full object-cover"
       />
       
-      {/* Loading State */}
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#121212] text-white">
-          <p className="animate-pulse tracking-widest text-sm uppercase">Loading sequence...</p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] text-white">
+          <p className="animate-pulse tracking-widest text-sm uppercase mb-4">Loading sequence...</p>
+          <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-blue-500 transition-all duration-300"
+              style={{ width: `${progress * 100}%` }}
+            />
+          </div>
         </div>
       )}
     </div>
