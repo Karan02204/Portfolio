@@ -12,7 +12,7 @@ export default function Overlay() {
       <Section opacity={useTransform(scrollYProgress, [0, 0.15], [1, 0])}>
         <div className="text-center">
           <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter mb-4 text-white drop-shadow-lg">
-            Karan
+            KARAN
           </h1>
           <p className="text-3xl md:text-5xl text-gray-300 font-light tracking-widest uppercase mt-4">
             Full Stack Web Developer
