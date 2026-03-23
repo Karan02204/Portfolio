@@ -22,12 +22,13 @@ function ScrollMotionText({
   charMode?: boolean;
 }) {
   const items = charMode ? text.split("") : text.split(" ");
-  // Tighter stagger if characters, looser if words
-  const stagger = charMode ? 0.005 : 0.012;
+  // Wider stagger for distinct one-by-one effect
+  const stagger = charMode ? 0.015 : 0.025;
+  // Shorter individual fade duration so they snap in crisply
+  const itemDuration = charMode ? 0.04 : 0.08;
 
   const isIntro = range.length === 3;
   const inStart = range[0];
-  const inEnd = range[1];
   const outStart = isIntro ? range[1] : range[2];
   const outEnd = isIntro ? range[2] : range[3];
 
@@ -36,7 +37,7 @@ function ScrollMotionText({
       {items.map((item, i) => {
         const globalI = baseStagger + i;
         const start = inStart + globalI * stagger;
-        const end = inEnd + globalI * stagger;
+        const end = start + itemDuration; // Individual letter finishes fading in
 
         // Animate up from 30px, hold at 0, go up to -30px 
         const opacity = useTransform(progress, [start, end, outStart, outEnd], [0, 1, 1, 0]);
