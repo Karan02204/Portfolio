@@ -143,11 +143,11 @@ export default function ScrollyCanvas({
       />
       
       {!isLoaded && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0a192f] text-white">
           <p className="animate-pulse tracking-widest text-sm uppercase mb-4">Loading sequence...</p>
           <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-blue-500 transition-all duration-300"
+              className="h-full bg-[#f48b34] transition-all duration-300"
               style={{ width: `${progress * 100}%` }}
             />
           </div>

@@ -3,7 +3,7 @@ import Projects from "@/components/Projects";
 
 export default function Home() {
   return (
-    <main className="bg-[#121212] min-h-screen">
+    <main className="bg-[#0a192f] min-h-screen">
       <ScrollyExperience />
       <Projects />
     </main>
