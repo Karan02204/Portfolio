@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Inconsolata } from "next/font/google";
 import "./globals.css";
 
 const gued = localFont({
@@ -18,6 +19,8 @@ const gued = localFont({
   variable: "--font-gued",
 });
 
+const inconsolata = Inconsolata({ subsets: ["latin"], variable: "--font-inconsolata" });
+
 export const metadata: Metadata = {
   title: "Creative Developer Portfolio",
   description: "High-end scrollytelling portfolio built with Next.js and Framer Motion.",
@@ -30,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${gued.variable} antialiased`}>
+      <body className={`${gued.variable} ${inconsolata.variable} antialiased`}>
         {children}
       </body>
     </html>

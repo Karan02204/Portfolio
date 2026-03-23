@@ -77,7 +77,10 @@ export default function Overlay({
       
       {/* Section 1: Introduction */}
       <Section>
-        <div className="text-center">
+        <div 
+          className="text-center" 
+          style={{ fontFamily: "var(--font-inconsolata)" }}
+        >
           <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter mb-4 text-white drop-shadow-lg overflow-hidden">
             <ScrollMotionText
               text="KARAN"
