@@ -87,7 +87,7 @@ export default function Overlay({
               <ScrollMotionText
                 text="KARAN"
                 progress={scrollYProgress}
-                range={[0, 0.08, 0.14, 0.18]} // [inStart, inEnd, outStart, outEnd]
+                range={[0, 0.06, 0.12, 0.18]} // [inStart, inEnd, outStart, outEnd]
                 charMode={true}
               />
             </h1>
@@ -100,7 +100,7 @@ export default function Overlay({
                 <ScrollMotionText
                   text="WEB"
                   progress={scrollYProgress}
-                  range={[0.18, 0.22, 0.30, 0.35]}
+                  range={[0.22, 0.28, 0.36, 0.42]}
                   charMode={false}
                 />
               </div>
@@ -108,7 +108,7 @@ export default function Overlay({
                 <ScrollMotionText
                   text="DEVELOPER"
                   progress={scrollYProgress}
-                  range={[0.18, 0.22, 0.30, 0.35]}
+                  range={[0.22, 0.28, 0.36, 0.42]}
                   baseStagger={1} // Flows continuously from WEB
                   charMode={false}
                 />
@@ -126,7 +126,7 @@ export default function Overlay({
               <ScrollMotionText
                 text="I build digital"
                 progress={scrollYProgress}
-                range={[0.30, 0.38, 0.55, 0.65]}
+                range={[0.48, 0.54, 0.68, 0.74]}
               />
             </div>
             <div className="block mt-2">
@@ -134,7 +134,7 @@ export default function Overlay({
                 text="experiences."
                 className="text-blue-400"
                 progress={scrollYProgress}
-                range={[0.30, 0.38, 0.55, 0.65]}
+                range={[0.48, 0.54, 0.68, 0.74]}
                 baseStagger={3} // Start stagger after the 3 words above
               />
             </div>
@@ -150,21 +150,21 @@ export default function Overlay({
               <ScrollMotionText
                 text="Bridging design"
                 progress={scrollYProgress}
-                range={[0.65, 0.73, 0.90, 1.0]}
+                range={[0.80, 0.86, 0.94, 1.0]}
               />
             </div>
             <div className="block mt-2">
               <ScrollMotionText
                 text="&"
                 progress={scrollYProgress}
-                range={[0.65, 0.73, 0.90, 1.0]}
+                range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={2}
               />
               <ScrollMotionText
                 text="engineering."
                 className="text-purple-400"
                 progress={scrollYProgress}
-                range={[0.65, 0.73, 0.90, 1.0]}
+                range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={3}
               />
             </div>
