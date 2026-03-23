@@ -5,8 +5,16 @@ import "./globals.css";
 
 const gued = localFont({
   src: [
-    { path: "../public/fonts/gued/Gued.otf", weight: "400", style: "normal" },
-    { path: "../public/fonts/gued/Gued - Bold.otf", weight: "700", style: "normal" },
+    {
+      path: "../public/fonts/gued/Gued.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/gued/Gued - Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
   ],
   variable: "--font-gued",
 });
@@ -14,11 +22,15 @@ const gued = localFont({
 const inconsolata = Inconsolata({ subsets: ["latin"], variable: "--font-inconsolata" });
 
 export const metadata: Metadata = {
-  title: "Karan Attri — Full Stack Developer",
-  description: "Full Stack Web Developer building cinematic digital experiences at the intersection of design & engineering.",
+  title: "Creative Developer Portfolio",
+  description: "High-end scrollytelling portfolio built with Next.js and Framer Motion.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
       <body className={`${gued.variable} ${inconsolata.variable} antialiased`}>

@@ -142,9 +142,9 @@ export default function Overlay({
         </div>
       </Section>
 
-      {/* Section 3: Values — right aligned */}
-      <Section right>
-        <div className="w-full text-right overflow-hidden flex flex-col items-end">
+      {/* Section 3: Values */}
+      <Section>
+        <div className="w-full ml-auto text-right overflow-hidden">
           <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
             <div className="block">
               <ScrollMotionText
@@ -175,13 +175,9 @@ export default function Overlay({
   );
 }
 
-function Section({ children, right = false }: { children: React.ReactNode; right?: boolean }) {
+function Section({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className={`fixed top-0 left-0 w-full h-screen flex flex-col px-4 md:px-10 justify-center ${
-        right ? "items-end" : "items-start"
-      }`}
-    >
+    <div className="fixed top-0 left-0 flex h-screen w-full flex-col justify-center px-4 md:px-10">
       {children}
     </div>
   );
