@@ -78,24 +78,31 @@ export default function Overlay({
       {/* Section 1: Introduction */}
       <Section>
         <div 
-          className="text-center" 
+          className="relative flex items-center justify-center w-full h-full text-center" 
           style={{ fontFamily: "var(--font-inconsolata)" }}
         >
-          <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter mb-4 text-white drop-shadow-lg overflow-hidden">
-            <ScrollMotionText
-              text="KARAN"
-              progress={scrollYProgress}
-              range={[0, 0.2, 0.3]} // [inStart, inEnd, outEnd]
-              charMode={true}
-            />
-          </h1>
-          <div className="text-3xl md:text-5xl text-gray-300 font-light tracking-widest uppercase mt-4 overflow-hidden">
-            <ScrollMotionText
-              text="Full Stack Web Developer"
-              progress={scrollYProgress}
-              range={[0.05, 0.2, 0.3]} 
-              charMode={false} // word by word
-            />
+          {/* First Sequence: KARAN */}
+          <div className="absolute w-full flex justify-center items-center">
+            <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
+              <ScrollMotionText
+                text="KARAN"
+                progress={scrollYProgress}
+                range={[0, 0.08, 0.14, 0.18]} // [inStart, inEnd, outStart, outEnd]
+                charMode={true}
+              />
+            </h1>
+          </div>
+          
+          {/* Second Sequence: Web Developer */}
+          <div className="absolute w-full flex justify-center items-center">
+            <h2 className="text-5xl md:text-[10rem] leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
+              <ScrollMotionText
+                text="Web Developer"
+                progress={scrollYProgress}
+                range={[0.18, 0.22, 0.30, 0.35]} // Appears perfectly as KARAN fades away
+                charMode={false} // word by word is better for bigger blocks
+              />
+            </h2>
           </div>
         </div>
       </Section>
