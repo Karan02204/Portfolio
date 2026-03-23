@@ -63,16 +63,19 @@ export function useImageSequence() {
 export default function ScrollyCanvas({
   numFrames = TOTAL_FRAMES,
   startFrame = 0, // eslint-disable-line @typescript-eslint/no-unused-vars
+  scrollYProgress: externalScrollYProgress,
 }: {
   numFrames?: number;
   startFrame?: number;
+  scrollYProgress?: MotionValue<number>;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   // Use our optimized hook
   const { images, loaded: isLoaded, progress } = useImageSequence();
   
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress: internalScrollYProgress } = useScroll();
+  const scrollYProgress = externalScrollYProgress || internalScrollYProgress;
   const currentFrame = useTransform(scrollYProgress, [0, 1], [0, numFrames - 1]);
   
   const renderScale = (index: number) => {

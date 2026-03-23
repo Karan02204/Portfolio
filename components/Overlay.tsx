@@ -3,8 +3,9 @@
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import { useRef } from "react";
 
-export default function Overlay() {
-  const { scrollYProgress } = useScroll();
+export default function Overlay({ scrollYProgress: externalScrollYProgress }: { scrollYProgress?: MotionValue<number> } = {}) {
+  const { scrollYProgress: internalScrollYProgress } = useScroll();
+  const scrollYProgress = externalScrollYProgress || internalScrollYProgress;
 
   return (
     <div className="absolute inset-0 z-10 h-full w-full pointer-events-none">
