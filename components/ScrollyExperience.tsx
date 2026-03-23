@@ -15,7 +15,7 @@ export default function ScrollyExperience() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[500vh]">
+    <div ref={containerRef} className="relative h-[1200vh]">
       <ScrollyCanvas scrollYProgress={scrollYProgress} />
       <Overlay scrollYProgress={scrollYProgress} />
     </div>
