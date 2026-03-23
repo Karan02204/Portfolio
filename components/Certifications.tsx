@@ -17,22 +17,12 @@ export default function Certifications() {
   const bgy = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
-    <section id="certs" ref={ref} className="py-32 px-6 md:px-20 relative overflow-hidden" style={{ background: "var(--background)" }}>
-      {/* Subtle Grain Overlay */}
-      <motion.div style={{ y: bgy }} className="absolute inset-x-0 -top-1/4 -bottom-1/4 opacity-[0.03] pointer-events-none mix-blend-overlay">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise)" />
-        </svg>
-      </motion.div>
-
+    <section id="certs" ref={ref} className="py-32 px-6 md:px-20 relative" style={{ background: "var(--background)" }}>
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           className="text-xs tracking-[0.3em] uppercase mb-4"
-          style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}
+          style={{ color: "#f48b34", fontFamily: "var(--font-inconsolata)" }}
         >
           Certifications
         </motion.p>
@@ -40,7 +30,7 @@ export default function Certifications() {
           initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-5xl md:text-7xl font-extrabold mb-16 tracking-tight"
-          style={{ fontFamily: "var(--font-syne)" }}
+          style={{ fontFamily: "var(--font-gued)" }}
         >
           Trophy Wall
         </motion.h2>
@@ -71,13 +61,13 @@ export default function Certifications() {
               {/* Icon */}
               <div className="text-4xl mb-4" style={{ color: "#f48b34" }}>{cert.icon}</div>
 
-              <h3 className="text-lg font-bold mb-1 leading-snug" style={{ fontFamily: "var(--font-syne)" }}>
+              <h3 className="text-lg font-bold mb-1 leading-snug" style={{ fontFamily: "var(--font-gued)" }}>
                 {cert.name}
               </h3>
-              <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-dm-sans)" }}>
+              <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-gued)" }}>
                 {cert.issuer}
               </p>
-              <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>
+              <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-inconsolata)" }}>
                 Issued: {cert.date}
               </p>
 
@@ -86,7 +76,7 @@ export default function Certifications() {
                   href={cert.link}
                   data-cursor
                   className="text-xs link-underline transition-colors"
-                  style={{ color: "#5086d0", fontFamily: "var(--font-mono)" }}
+                  style={{ color: "#5086d0", fontFamily: "var(--font-inconsolata)" }}
                 >
                   Verify Credential →
                 </a>

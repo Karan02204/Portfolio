@@ -47,7 +47,7 @@ export default function About() {
             </div>
             <div
               className="absolute -bottom-4 -right-4 px-3 py-1 rounded font-bold text-xs tracking-[0.2em] rotate-[-12deg]"
-              style={{ border: "2px solid #5086d0", color: "#5086d0", fontFamily: "var(--font-mono)" }}
+              style={{ border: "2px solid #5086d0", color: "#5086d0", fontFamily: "var(--font-inconsolata)" }}
             >
               FULL STACK DEV
             </div>
@@ -57,31 +57,31 @@ export default function About() {
         {/* RIGHT — Bio */}
         <div className="flex flex-col gap-6">
           <FadeUp delay={0}>
-            <p className="text-xs tracking-[0.3em] uppercase" style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}>
+            <p className="text-xs tracking-[0.3em] uppercase" style={{ color: "#f48b34", fontFamily: "var(--font-inconsolata)" }}>
               About Me
             </p>
           </FadeUp>
 
           <FadeUp delay={0.1}>
-            <h2 className="text-5xl md:text-6xl font-extrabold leading-none tracking-tight" style={{ fontFamily: "var(--font-syne)" }}>
+            <h2 className="text-5xl md:text-6xl font-extrabold leading-none tracking-tight" style={{ fontFamily: "var(--font-gued)" }}>
               KARAN ATTRI
             </h2>
           </FadeUp>
 
           <FadeUp delay={0.15}>
-            <p className="text-xs" style={{ color: "#5086d0", fontFamily: "var(--font-mono)" }}>
+            <p className="text-xs" style={{ color: "#5086d0", fontFamily: "var(--font-inconsolata)" }}>
               Full Stack Web Developer ─────────────────────
             </p>
           </FadeUp>
 
           <FadeUp delay={0.2}>
-            <p className="text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.75)", fontFamily: "var(--font-dm-sans)" }}>
+            <p className="text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.75)", fontFamily: "var(--font-gued)" }}>
               3+ years building digital experiences that live at the intersection of design &amp; engineering. I write clean code, obsess over UI polish, and ship products that users actually love.
             </p>
           </FadeUp>
 
           <FadeUp delay={0.25}>
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-mono)" }}>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-inconsolata)" }}>
               📍 India · Open to Remote &nbsp;·&nbsp; ✦ Available for Freelance
             </p>
           </FadeUp>
@@ -92,7 +92,7 @@ export default function About() {
                 href="#"
                 data-cursor
                 className="px-6 py-3 rounded-full text-sm font-medium text-black transition-transform hover:-translate-y-1"
-                style={{ background: "#f48b34", fontFamily: "var(--font-dm-sans)" }}
+                style={{ background: "#f48b34", fontFamily: "var(--font-gued)" }}
               >
                 Download CV →
               </a>
@@ -100,7 +100,7 @@ export default function About() {
                 href="#contact"
                 data-cursor
                 className="px-6 py-3 rounded-full text-sm font-medium transition-transform hover:-translate-y-1"
-                style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-dm-sans)" }}
+                style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-gued)" }}
               >
                 Let's Talk →
               </a>
@@ -112,10 +112,10 @@ export default function About() {
             <div className="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-white/10">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <div className="text-4xl font-extrabold" style={{ color: "#f48b34", fontFamily: "var(--font-syne)" }}>
+                  <div className="text-4xl font-extrabold" style={{ color: "#f48b34", fontFamily: "var(--font-gued)" }}>
                     {s.value}
                   </div>
-                  <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)" }}>
+                  <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-inconsolata)" }}>
                     {s.label}
                   </div>
                 </div>

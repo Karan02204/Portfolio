@@ -19,7 +19,7 @@ export default function ScrollyExperience({ onComplete }: { onComplete?: () => v
   }, [scrollYProgress, onComplete]);
 
   return (
-    <div ref={containerRef} className="relative h-[1200vh]">
+    <div ref={containerRef} className="relative h-[500vh]">
       <ScrollyCanvas scrollYProgress={scrollYProgress} />
       <Overlay scrollYProgress={scrollYProgress} />
     </div>

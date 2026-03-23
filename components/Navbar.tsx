@@ -41,7 +41,7 @@ export default function Navbar() {
           onClick={() => handleClick(link)}
           className="relative text-sm font-medium tracking-wide transition-colors duration-200"
           style={{
-            fontFamily: "var(--font-dm-sans)",
+            fontFamily: "var(--font-gued)",
             color: active === link ? "#f48b34" : "rgba(255,255,255,0.7)",
           }}
           data-cursor
@@ -60,7 +60,7 @@ export default function Navbar() {
       {/* Available for work dot */}
       <div className="flex items-center gap-2 ml-2 pl-4 border-l border-white/10">
         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-        <span className="text-xs text-white/50" style={{ fontFamily: "var(--font-mono)" }}>
+        <span className="text-xs text-white/50" style={{ fontFamily: "var(--font-inconsolata)" }}>
           Available
         </span>
       </div>

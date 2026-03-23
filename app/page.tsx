@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import ScrollyExperience from "@/components/ScrollyExperience";
 import BurnTransition from "@/components/BurnTransition";
 import Navbar from "@/components/Navbar";
@@ -12,23 +11,27 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 
 export default function Home() {
-  const [scrollyDone, setScrollyDone] = useState(false);
-  const [burnDone, setBurnDone] = useState(false);
 
   return (
     <main className="bg-[#121212] min-h-screen">
       <CustomCursor />
 
-      {/* BurnTransition fires when scrollytelling section is fully scrolled */}
-      {scrollyDone && !burnDone && (
-        <BurnTransition onComplete={() => setBurnDone(true)} />
-      )}
+      <Navbar />
 
-      {/* Navbar appears after the burn completes */}
-      {burnDone && <Navbar />}
+      {/* Scrollytelling Hero */}
+      <ScrollyExperience />
 
-      {/* Scrollytelling Hero — triggers BurnTransition when user scrolls past */}
-      <ScrollyExperience onComplete={() => setScrollyDone(true)} />
+      {/* The Framer Burn Transition — overlapping the next section */}
+      <div className="w-full h-[30vh] md:h-[50vh] relative -mb-[10vh] md:-mb-[25vh] z-20 pointer-events-none">
+        <BurnTransition 
+          color="#121212" 
+          transitionColor="#f48b34" 
+          parallaxEnabled={true} 
+          movement={{ horizontal: "center", vertical: 0.5 }}
+          preview={false}
+          style={{}}
+        />
+      </div>
 
       {/* Portfolio Content */}
       <About />

@@ -32,14 +32,14 @@ export default function Contact() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-5xl md:text-7xl font-extrabold leading-none mb-4" style={{ fontFamily: "var(--font-syne)" }}>
+          <h2 className="text-5xl md:text-7xl font-extrabold leading-none mb-4" style={{ fontFamily: "var(--font-gued)" }}>
             <span style={{ color: "#5086d0", fontWeight: 300 }}>LET'S </span>
             <span>BUILD </span>
             <br />
             <span style={{ color: "#5086d0", fontWeight: 300 }}>SOMETHING </span>
             <span style={{ color: "#f48b34" }}>GREAT</span>
           </h2>
-          <p className="text-sm mt-6 mb-12" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-dm-sans)" }}>
+          <p className="text-sm mt-6 mb-12" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-gued)" }}>
             Available for freelance &amp; full-time opportunities
           </p>
 
@@ -49,7 +49,7 @@ export default function Contact() {
             data-cursor
             className="w-full max-w-md mx-auto block px-8 py-5 rounded-xl text-xl font-medium transition-all duration-300"
             style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--font-inconsolata)",
               border: "1px solid rgba(244,139,52,0.3)",
               background: "transparent",
               color: "#fff",
@@ -70,7 +70,7 @@ export default function Contact() {
                 href={s.href}
                 data-cursor
                 className="w-11 h-11 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-200 group"
-                style={{ border: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-mono)" }}
+                style={{ border: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-inconsolata)" }}
                 onMouseEnter={e => {
                   e.currentTarget.style.color = "#f48b34";
                   e.currentTarget.style.borderColor = "#f48b34";
@@ -88,7 +88,7 @@ export default function Contact() {
           </div>
 
           <div className="border-t mb-10" style={{ borderColor: "rgba(255,255,255,0.06)" }} />
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-inconsolata)" }}>
             Currently open to · Remote · Hybrid · India
           </p>
         </motion.div>

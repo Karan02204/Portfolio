@@ -63,7 +63,7 @@ export default function Projects() {
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           className="text-xs tracking-[0.3em] uppercase mb-4"
-          style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}
+          style={{ color: "#f48b34", fontFamily: "var(--font-inconsolata)" }}
         >
           Selected Work
         </motion.p>
@@ -71,7 +71,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-5xl md:text-7xl font-extrabold mb-12 tracking-tight"
-          style={{ fontFamily: "var(--font-syne)" }}
+          style={{ fontFamily: "var(--font-gued)" }}
         >
           Case Files
         </motion.h2>
@@ -85,7 +85,7 @@ export default function Projects() {
               data-cursor
               className="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
               style={{
-                fontFamily: "var(--font-dm-sans)",
+                fontFamily: "var(--font-gued)",
                 background: active === f ? "#f48b34" : "rgba(255,255,255,0.05)",
                 color: active === f ? "#000" : "rgba(255,255,255,0.6)",
                 border: "1px solid " + (active === f ? "#f48b34" : "rgba(255,255,255,0.1)"),
@@ -119,23 +119,23 @@ export default function Projects() {
 
               {/* Details Area */}
               <div className="md:w-1/2 p-10 flex flex-col justify-center">
-                <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}>
+                <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#f48b34", fontFamily: "var(--font-inconsolata)" }}>
                   Featured · {featured.year}
                 </p>
-                <h3 className="text-4xl font-extrabold mb-4" style={{ fontFamily: "var(--font-syne)" }}>
+                <h3 className="text-4xl font-extrabold mb-4" style={{ fontFamily: "var(--font-gued)" }}>
                   {featured.title}
                 </h3>
-                <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-dm-sans)" }}>
+                <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-gued)" }}>
                   {featured.description}
                 </p>
                 <div className="flex gap-2 flex-wrap mb-8">
                   {featured.tags.map(t => (
-                    <span key={t} className="px-3 py-1 rounded text-xs" style={{ background: "#5086d020", color: "#5086d0", border: "1px solid #5086d040", fontFamily: "var(--font-mono)" }}>{t}</span>
+                    <span key={t} className="px-3 py-1 rounded text-xs" style={{ background: "#5086d020", color: "#5086d0", border: "1px solid #5086d040", fontFamily: "var(--font-inconsolata)" }}>{t}</span>
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <a href={featured.github} data-cursor className="px-5 py-2 rounded-full text-sm transition-transform hover:-translate-y-1" style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-dm-sans)" }}>GitHub ↗</a>
-                  <a href={featured.live} data-cursor className="px-5 py-2 rounded-full text-sm text-black transition-transform hover:-translate-y-1" style={{ background: "#f48b34", fontFamily: "var(--font-dm-sans)" }}>Live Demo ↗</a>
+                  <a href={featured.github} data-cursor className="px-5 py-2 rounded-full text-sm transition-transform hover:-translate-y-1" style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-gued)" }}>GitHub ↗</a>
+                  <a href={featured.live} data-cursor className="px-5 py-2 rounded-full text-sm text-black transition-transform hover:-translate-y-1" style={{ background: "#f48b34", fontFamily: "var(--font-gued)" }}>Live Demo ↗</a>
                 </div>
               </div>
             </div>
@@ -166,16 +166,16 @@ export default function Projects() {
                 <div className="h-40 w-full" style={{ background: "linear-gradient(135deg, #5086d015, #f48b3415)" }} />
 
                 <div className="p-6">
-                  <p className="text-xs tracking-widest uppercase mb-2" style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}>
+                  <p className="text-xs tracking-widest uppercase mb-2" style={{ color: "#f48b34", fontFamily: "var(--font-inconsolata)" }}>
                     {project.category} · {project.year}
                   </p>
-                  <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-syne)" }}>{project.title}</h3>
+                  <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-gued)" }}>{project.title}</h3>
                   <div className="flex gap-2 flex-wrap mb-3">
                     {project.tags.map(t => (
-                      <span key={t} className="px-2 py-0.5 rounded text-xs" style={{ background: "#5086d015", color: "#5086d0", fontFamily: "var(--font-mono)" }}>{t}</span>
+                      <span key={t} className="px-2 py-0.5 rounded text-xs" style={{ background: "#5086d015", color: "#5086d0", fontFamily: "var(--font-inconsolata)" }}>{t}</span>
                     ))}
                   </div>
-                  <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-dm-sans)" }}>
+                  <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-gued)" }}>
                     {project.description}
                   </p>
                   <div className="flex gap-3">
