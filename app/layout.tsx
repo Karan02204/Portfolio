@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const gued = localFont({
+  src: [
+    {
+      path: "../public/fonts/gued/Gued.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/gued/Gued - Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-gued",
+});
 
 export const metadata: Metadata = {
   title: "Creative Developer Portfolio",
@@ -16,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${gued.variable} antialiased`}>
         {children}
       </body>
     </html>
