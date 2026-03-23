@@ -99,8 +99,8 @@ export default function Overlay({
 
       {/* Section 2: Statement */}
       <Section>
-        <div className="ml-10 md:ml-32 max-w-lg text-left overflow-hidden">
-          <div className="text-4xl md:text-6xl font-semibold leading-tight text-white/90">
+        <div className="ml-5 md:ml-32 w-full text-left overflow-hidden">
+          <div className="text-6xl md:text-[7rem] font-bold leading-none tracking-tighter text-white/90">
             <div className="block">
               <ScrollMotionText
                 text="I build digital"
@@ -123,8 +123,8 @@ export default function Overlay({
 
       {/* Section 3: Values */}
       <Section>
-        <div className="mr-10 md:mr-32 ml-auto max-w-lg text-right overflow-hidden">
-          <div className="text-4xl md:text-6xl font-semibold leading-tight text-white/90">
+        <div className="mr-5 md:mr-32 ml-auto w-full text-right overflow-hidden">
+          <div className="text-6xl md:text-[7rem] font-bold leading-none tracking-tighter text-white/90">
             <div className="block">
               <ScrollMotionText
                 text="Bridging design"
