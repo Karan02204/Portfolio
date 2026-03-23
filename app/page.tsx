@@ -16,6 +16,7 @@ export default function Home() {
           noiseScale={0.37}
           parallaxEnabled={true} 
           movement={{ horizontal: "center", vertical: 0.5 }}
+          style={{}}
         />
       </div>
 
