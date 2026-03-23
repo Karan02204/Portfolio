@@ -1,18 +1,22 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useScroll } from "framer-motion";
 import ScrollyCanvas from "./ScrollyCanvas";
 import Overlay from "./Overlay";
 
-export default function ScrollyExperience() {
+export default function ScrollyExperience({ onComplete }: { onComplete?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // Tracks progress exactly from when container hits top of viewport 
-    // to when container bottom hits bottom of viewport.
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   });
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (v) => {
+      if (v >= 0.99) onComplete?.();
+    });
+  }, [scrollYProgress, onComplete]);
 
   return (
     <div ref={containerRef} className="relative h-[1200vh]">
