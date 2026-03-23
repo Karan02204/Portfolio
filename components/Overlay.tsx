@@ -93,15 +93,26 @@ export default function Overlay({
             </h1>
           </div>
           
-          {/* Second Sequence: Web Developer */}
-          <div className="absolute w-full flex justify-center items-center">
-            <h2 className="text-5xl md:text-[10rem] leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
-              <ScrollMotionText
-                text="Web Developer"
-                progress={scrollYProgress}
-                range={[0.18, 0.22, 0.30, 0.35]} // Appears perfectly as KARAN fades away
-                charMode={false} // word by word is better for bigger blocks
-              />
+          {/* Second Sequence: WEB DEVELOPER */}
+          <div className="absolute w-full flex flex-col justify-center items-center">
+            <h2 className="text-6xl md:text-[10rem] text-center flex flex-col items-center leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
+              <div className="block">
+                <ScrollMotionText
+                  text="WEB"
+                  progress={scrollYProgress}
+                  range={[0.18, 0.22, 0.30, 0.35]}
+                  charMode={false}
+                />
+              </div>
+              <div className="block">
+                <ScrollMotionText
+                  text="DEVELOPER"
+                  progress={scrollYProgress}
+                  range={[0.18, 0.22, 0.30, 0.35]}
+                  baseStagger={1} // Flows continuously from WEB
+                  charMode={false}
+                />
+              </div>
             </h2>
           </div>
         </div>
