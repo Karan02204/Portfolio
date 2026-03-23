@@ -27,7 +27,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section className="relative w-full bg-[#0a192f] py-32 px-6 md:px-20 z-20">
+    <section className="relative w-full bg-[#121212] py-32 px-6 md:px-20 z-20">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -50,10 +50,10 @@ export default function Projects() {
               className="group relative aspect-[4/3] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-8 flex flex-col justify-end overflow-hidden hover:bg-white/10 transition-colors duration-500"
             >
               {/* Fallback gradient for visual interest if no image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#f48b34]/10 to-white/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative z-10">
-                <p className="text-sm font-medium text-[#f48b34] mb-2 uppercase tracking-wider">
+                <p className="text-sm font-medium text-blue-400 mb-2 uppercase tracking-wider">
                   {project.category}
                 </p>
                 <h3 className="text-3xl font-bold text-white mb-2">
@@ -65,7 +65,7 @@ export default function Projects() {
               </div>
               
               {/* Subtle hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-tr from-[#f48b34] to-white/30 transition-opacity duration-500 blur-2xl" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-tr from-blue-400 to-purple-400 transition-opacity duration-500 blur-2xl" />
             </motion.div>
           ))}
         </div>
