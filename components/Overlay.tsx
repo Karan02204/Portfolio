@@ -99,8 +99,8 @@ export default function Overlay({
 
       {/* Section 2: Statement */}
       <Section>
-        <div className="ml-5 md:ml-32 w-full text-left overflow-hidden">
-          <div className="text-6xl md:text-[7rem] font-bold leading-none tracking-tighter text-white/90">
+        <div className="w-full text-left overflow-hidden">
+          <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
             <div className="block">
               <ScrollMotionText
                 text="I build digital"
@@ -123,8 +123,8 @@ export default function Overlay({
 
       {/* Section 3: Values */}
       <Section>
-        <div className="mr-5 md:mr-32 ml-auto w-full text-right overflow-hidden">
-          <div className="text-6xl md:text-[7rem] font-bold leading-none tracking-tighter text-white/90">
+        <div className="w-full ml-auto text-right overflow-hidden">
+          <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
             <div className="block">
               <ScrollMotionText
                 text="Bridging design"
@@ -156,7 +156,7 @@ export default function Overlay({
 
 function Section({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed top-0 left-0 flex h-screen w-full flex-col justify-center px-8 md:px-20">
+    <div className="fixed top-0 left-0 flex h-screen w-full flex-col justify-center px-4 md:px-10">
       {children}
     </div>
   );
