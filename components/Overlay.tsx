@@ -132,10 +132,10 @@ export default function Overlay({
             <div className="block mt-2">
               <ScrollMotionText
                 text="experiences."
-                className="text-blue-400"
+                className="[color:#f48b34]"
                 progress={scrollYProgress}
                 range={[0.48, 0.54, 0.68, 0.74]}
-                baseStagger={3} // Start stagger after the 3 words above
+                baseStagger={3}
               />
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function Overlay({
               />
               <ScrollMotionText
                 text="engineering."
-                className="text-purple-400"
+                className="[color:#5086d0]"
                 progress={scrollYProgress}
                 range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={3}
