@@ -10,7 +10,7 @@ export default function Overlay({ scrollYProgress: externalScrollYProgress }: { 
   return (
     <div className="absolute inset-0 z-10 h-full w-full pointer-events-none">
       {/* Section 1: Introduction */}
-      <Section opacity={useTransform(scrollYProgress, [0, 0.15], [1, 0])}>
+      <Section opacity={useTransform(scrollYProgress, [0, 0.20, 0.30], [1, 1, 0])}>
         <div className="text-center">
           <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter mb-4 text-white drop-shadow-lg">
             KARAN
@@ -22,7 +22,7 @@ export default function Overlay({ scrollYProgress: externalScrollYProgress }: { 
       </Section>
 
       {/* Section 2: Statement */}
-      <Section opacity={useTransform(scrollYProgress, [0.25, 0.35, 0.45], [0, 1, 0])}>
+      <Section opacity={useTransform(scrollYProgress, [0.30, 0.38, 0.55, 0.65], [0, 1, 1, 0])}>
         <div className="ml-10 md:ml-32 max-w-lg text-left">
           <h2 className="text-4xl md:text-6xl font-semibold leading-tight text-white/90">
             I build digital <br />
@@ -32,7 +32,7 @@ export default function Overlay({ scrollYProgress: externalScrollYProgress }: { 
       </Section>
 
       {/* Section 3: Values */}
-      <Section opacity={useTransform(scrollYProgress, [0.55, 0.65, 0.75], [0, 1, 0])}>
+      <Section opacity={useTransform(scrollYProgress, [0.65, 0.73, 0.90, 1.0], [0, 1, 1, 0])}>
         <div className="mr-10 md:mr-32 ml-auto max-w-lg text-right">
           <h2 className="text-4xl md:text-6xl font-semibold leading-tight text-white/90">
             Bridging design <br />
