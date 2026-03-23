@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const categories = [
   {
@@ -41,10 +41,25 @@ const allSkills = ["React", "Next.js", "TypeScript", "Node.js", "Python", "Mongo
 export default function Skills() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const bgy = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
   return (
-    <section id="skills" ref={ref} className="py-32 px-6 md:px-20" style={{ background: "var(--background)" }}>
-      <div className="max-w-7xl mx-auto">
+    <section id="skills" ref={ref} className="py-32 px-6 md:px-20 relative overflow-hidden" style={{ background: "var(--background)" }}>
+      {/* Subtle Circuit Board Background — Parallax */}
+      <motion.div style={{ y: bgy }} className="absolute inset-x-0 -top-1/4 -bottom-1/4 opacity-5 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="circuit-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 10 10 L 90 10 L 90 90 L 10 90 Z" fill="none" stroke="#5086d0" strokeWidth="0.5" />
+            <circle cx="10" cy="10" r="2" fill="#f48b34" />
+            <circle cx="90" cy="10" r="2" fill="#f48b34" />
+            <path d="M 10 10 L 0 0 M 90 10 L 100 0" stroke="#f48b34" strokeWidth="0.5" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#circuit-grid)" />
+        </svg>
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.5 }}

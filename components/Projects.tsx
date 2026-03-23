@@ -109,27 +109,33 @@ export default function Projects() {
           >
             {/* Top-left corner accent */}
             <div className="absolute top-0 left-0 w-1 h-1" style={{ background: "#f48b34" }} />
-            <div className="p-10 md:p-14">
-              <div className="flex flex-col md:flex-row justify-between gap-6">
-                <div>
-                  <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}>
-                    Featured · {featured.year}
-                  </p>
-                  <h3 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ fontFamily: "var(--font-syne)" }}>
-                    {featured.title}
-                  </h3>
-                  <p className="text-base max-w-xl mb-6" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-dm-sans)" }}>
-                    {featured.description}
-                  </p>
-                  <div className="flex gap-2 flex-wrap mb-8">
-                    {featured.tags.map(t => (
-                      <span key={t} className="px-3 py-1 rounded text-xs" style={{ background: "#5086d020", color: "#5086d0", border: "1px solid #5086d040", fontFamily: "var(--font-mono)" }}>{t}</span>
-                    ))}
-                  </div>
-                  <div className="flex gap-4">
-                    <a href={featured.github} data-cursor className="px-5 py-2 rounded-full text-sm transition-transform hover:-translate-y-1" style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-dm-sans)" }}>GitHub ↗</a>
-                    <a href={featured.live} data-cursor className="px-5 py-2 rounded-full text-sm text-black transition-transform hover:-translate-y-1" style={{ background: "#f48b34", fontFamily: "var(--font-dm-sans)" }}>Live Demo ↗</a>
-                  </div>
+            <div className="p-8 md:p-0 flex flex-col md:flex-row min-h-[400px]">
+              {/* Mockup Area */}
+              <div className="md:w-1/2 p-6 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #5086d010, #f48b3410)" }}>
+                <div className="w-full aspect-video rounded-lg shadow-2xl flex items-center justify-center text-5xl" style={{ border: "1px solid rgba(255,255,255,0.1)", background: "rgba(0,0,0,0.5)" }}>
+                  🖼️
+                </div>
+              </div>
+
+              {/* Details Area */}
+              <div className="md:w-1/2 p-10 flex flex-col justify-center">
+                <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#f48b34", fontFamily: "var(--font-mono)" }}>
+                  Featured · {featured.year}
+                </p>
+                <h3 className="text-4xl font-extrabold mb-4" style={{ fontFamily: "var(--font-syne)" }}>
+                  {featured.title}
+                </h3>
+                <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-dm-sans)" }}>
+                  {featured.description}
+                </p>
+                <div className="flex gap-2 flex-wrap mb-8">
+                  {featured.tags.map(t => (
+                    <span key={t} className="px-3 py-1 rounded text-xs" style={{ background: "#5086d020", color: "#5086d0", border: "1px solid #5086d040", fontFamily: "var(--font-mono)" }}>{t}</span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <a href={featured.github} data-cursor className="px-5 py-2 rounded-full text-sm transition-transform hover:-translate-y-1" style={{ border: "1px solid rgba(255,255,255,0.2)", fontFamily: "var(--font-dm-sans)" }}>GitHub ↗</a>
+                  <a href={featured.live} data-cursor className="px-5 py-2 rounded-full text-sm text-black transition-transform hover:-translate-y-1" style={{ background: "#f48b34", fontFamily: "var(--font-dm-sans)" }}>Live Demo ↗</a>
                 </div>
               </div>
             </div>
@@ -151,6 +157,7 @@ export default function Projects() {
                 onMouseEnter={e => (e.currentTarget.style.borderColor = "#f48b34")}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)")}
                 data-cursor
+                data-cursor-text="VIEW"
               >
                 {/* Color accent tab */}
                 <div className="absolute top-0 left-0 w-1 h-1" style={{ background: "#f48b34" }} />

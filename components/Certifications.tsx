@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const certs = [
   { icon: "☁", issuer: "Amazon Web Services", name: "AWS Certified Developer — Associate", date: "March 2024", link: "#" },
@@ -13,10 +13,22 @@ const certs = [
 export default function Certifications() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const bgy = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
-    <section id="certs" ref={ref} className="py-32 px-6 md:px-20" style={{ background: "var(--background)" }}>
-      <div className="max-w-7xl mx-auto">
+    <section id="certs" ref={ref} className="py-32 px-6 md:px-20 relative overflow-hidden" style={{ background: "var(--background)" }}>
+      {/* Subtle Grain Overlay */}
+      <motion.div style={{ y: bgy }} className="absolute inset-x-0 -top-1/4 -bottom-1/4 opacity-[0.03] pointer-events-none mix-blend-overlay">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#noise)" />
+        </svg>
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           className="text-xs tracking-[0.3em] uppercase mb-4"
