@@ -2,8 +2,8 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { TargetAndTransition, Variants } from "framer-motion";
 import Link from "next/link";
-import type { TargetAndTransition } from "framer-motion";
 
 type MenuItem = {
   label: string;
@@ -66,7 +66,7 @@ const BAR_SPRING = {
 };
 
 // ── Sidebar container variants ───────────────────────────────────────────────
-const sidebarVariants = {
+const sidebarVariants: Variants = {
   closed: {
     x: "-100%",
     transition: { ...PANEL_SPRING, staggerChildren: 0.03, staggerDirection: -1 },
@@ -78,7 +78,7 @@ const sidebarVariants = {
 };
 
 // ── Each nav item variants ───────────────────────────────────────────────────
-const itemVariants = {
+const itemVariants: Variants = {
   closed: {
     opacity: 0,
     x: -28,
@@ -94,21 +94,21 @@ const itemVariants = {
 };
 
 // ── Backdrop variants ────────────────────────────────────────────────────────
-const backdropVariants = {
-  closed: { opacity: 0, transition: { duration: 0.28, ease: "easeInOut" } },
-  open:   { opacity: 1, transition: { duration: 0.28, ease: "easeInOut" } },
+const backdropVariants: Variants = {
+  closed: { opacity: 0, transition: { duration: 0.28, ease: "easeInOut" as const } },
+  open:   { opacity: 1, transition: { duration: 0.28, ease: "easeInOut" as const } },
 };
 
 // ── Accent bar variants ──────────────────────────────────────────────────────
-const accentBarVariants = {
+const accentBarVariants: Variants = {
   closed: { scaleY: 0, transition: BAR_SPRING },
   open:   { scaleY: 1, transition: { ...BAR_SPRING, delay: 0.1 } },
 };
 
 // ── Footer variants ──────────────────────────────────────────────────────────
-const footerVariants = {
+const footerVariants: Variants = {
   closed: { opacity: 0, y: 12, transition: { duration: 0.2 } },
-  open:   { opacity: 1, y: 0,  transition: { duration: 0.4, delay: 0.45, ease: "easeOut" } },
+  open:   { opacity: 1, y: 0,  transition: { duration: 0.4, delay: 0.45, ease: "easeOut" as const } },
 };
 
 // ── Single nav item ──────────────────────────────────────────────────────────
