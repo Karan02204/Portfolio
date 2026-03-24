@@ -2,6 +2,7 @@ import ScrollyExperience from "@/components/ScrollyExperience";
 import Projects from "@/components/Projects";
 
 import BurnTransition from "@/components/BurnTransition";
+import TextPressure from "@/components/TextPressure";
 
 export default function Home() {
   return (
@@ -20,6 +21,17 @@ export default function Home() {
         />
       </div>
 
+      <TextPressure text="Hello!"
+        flex
+        alpha={false}
+        stroke={false}
+        width
+        weight
+        italic
+        textColor="#ffffff"
+        strokeColor="#5227FF"
+        minFontSize={36}
+      />
       <Projects />
     </main>
   );
