@@ -143,7 +143,7 @@ export default function ScrollyCanvas({
       />
       
       {/* Dark tint overlay for superior text contrast and depth */}
-      <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/10 pointer-events-none" />
       {!isLoaded && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] text-white">
           <p className="animate-pulse tracking-widest text-sm uppercase mb-4">Loading sequence...</p>
