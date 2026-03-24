@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 type MenuItem = {
@@ -16,14 +16,14 @@ const MENU_ITEMS: MenuItem[] = [
   { label: "Contact", href: "#contact" },
 ];
 
-const ACCENT = "#f48b34";
+const ACCENT      = "#f48b34";
+const ACCENT_BLUE = "#5086d0";
 
-// Inline SVG — no lucide-react dep
 function ArrowRight() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="36" height="36"
+      width="32" height="32"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -39,34 +39,107 @@ function ArrowRight() {
 
 const MotionLink = motion.create(Link);
 
-function NavItem({ item, index }: { item: MenuItem; index: number }) {
+// ── Spring presets ───────────────────────────────────────────────────────────
+// Panel slide: lower stiffness + higher damping = silky glide, no bounce
+const PANEL_SPRING = {
+  type: "spring" as const,
+  stiffness: 220,
+  damping: 30,
+  mass: 0.8,
+};
+
+// Nav items: snappier, but still physically smooth
+const ITEM_SPRING = {
+  type: "spring" as const,
+  stiffness: 280,
+  damping: 28,
+  mass: 0.6,
+};
+
+// Accent bar: same feel as panel
+const BAR_SPRING = {
+  type: "spring" as const,
+  stiffness: 200,
+  damping: 28,
+  mass: 0.8,
+};
+
+// ── Sidebar container variants ───────────────────────────────────────────────
+const sidebarVariants = {
+  closed: {
+    x: "-100%",
+    transition: { ...PANEL_SPRING, staggerChildren: 0.03, staggerDirection: -1 },
+  },
+  open: {
+    x: 0,
+    transition: { ...PANEL_SPRING, staggerChildren: 0.07, delayChildren: 0.12 },
+  },
+};
+
+// ── Each nav item variants ───────────────────────────────────────────────────
+const itemVariants = {
+  closed: {
+    opacity: 0,
+    x: -28,
+    filter: "blur(6px)",
+    transition: ITEM_SPRING,
+  },
+  open: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: ITEM_SPRING,
+  },
+};
+
+// ── Backdrop variants ────────────────────────────────────────────────────────
+const backdropVariants = {
+  closed: { opacity: 0, transition: { duration: 0.28, ease: "easeInOut" } },
+  open:   { opacity: 1, transition: { duration: 0.28, ease: "easeInOut" } },
+};
+
+// ── Accent bar variants ──────────────────────────────────────────────────────
+const accentBarVariants = {
+  closed: { scaleY: 0, transition: BAR_SPRING },
+  open:   { scaleY: 1, transition: { ...BAR_SPRING, delay: 0.1 } },
+};
+
+// ── Footer variants ──────────────────────────────────────────────────────────
+const footerVariants = {
+  closed: { opacity: 0, y: 12, transition: { duration: 0.2 } },
+  open:   { opacity: 1, y: 0,  transition: { duration: 0.4, delay: 0.45, ease: "easeOut" } },
+};
+
+// ── Single nav item ──────────────────────────────────────────────────────────
+function NavItem({ item }: { item: MenuItem }) {
   return (
     <motion.div
+      variants={itemVariants}
       className="flex items-center gap-2 cursor-pointer overflow-hidden"
       initial="rest"
       whileHover="hover"
       animate="rest"
     >
-      {/* Arrow slides in from left */}
+      {/* Arrow slides in from left on hover */}
       <motion.div
         variants={{
-          rest: { x: -36, opacity: 0 },
-          hover: { x: 0, opacity: 1 },
+          rest:  { x: -32, opacity: 0 },
+          hover: { x: 0,   opacity: 1 },
         }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
         style={{ color: ACCENT, flexShrink: 0 }}
       >
         <ArrowRight />
       </motion.div>
 
-      {/* Label shifts slightly right and recolours */}
+      {/* Label shifts right and recolours */}
       <MotionLink
         href={item.href}
         variants={{
-          rest:  { x: -36, color: "#ffffff" },
+          rest:  { x: -32, color: "#ffffff" },
           hover: { x: 0,   color: ACCENT },
         }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="font-bold text-4xl leading-none select-none"
         style={{ textDecoration: "none" }}
       >
@@ -76,6 +149,27 @@ function NavItem({ item, index }: { item: MenuItem; index: number }) {
   );
 }
 
+// ── Hamburger bar ─────────────────────────────────────────────────────────────
+function HamburgerBar({
+  animate,
+  className = "",
+  style = {},
+}: {
+  animate: object;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <motion.span
+      animate={animate}
+      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={`block w-7 h-0.5 bg-white rounded-full ${className}`}
+      style={style}
+    />
+  );
+}
+
+// ── Root component ────────────────────────────────────────────────────────────
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const toggle = useCallback(() => setOpen(o => !o), []);
@@ -83,79 +177,91 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* ── Hamburger ───────────────────────────────────────────── */}
+      {/* ── Hamburger ─────────────────────────────────────────────────────── */}
       <button
         onClick={toggle}
         aria-label={open ? "Close menu" : "Open menu"}
         className="fixed top-6 left-6 z-[110] flex flex-col justify-center items-center w-10 h-10 gap-[7px]"
       >
-        <motion.span
-          animate={open ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="block w-7 h-0.5 bg-white rounded-full origin-center"
-        />
-        <motion.span
-          animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.15 }}
-          className="block w-7 h-0.5 bg-white rounded-full"
-        />
-        <motion.span
-          animate={open ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="block w-7 h-0.5 bg-white rounded-full origin-center"
-        />
+        <HamburgerBar animate={open ? { rotate: 45,  y: 9,  backgroundColor: ACCENT } : { rotate: 0, y: 0, backgroundColor: "#ffffff" }} />
+        <HamburgerBar animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} />
+        <HamburgerBar animate={open ? { rotate: -45, y: -9, backgroundColor: ACCENT } : { rotate: 0, y: 0, backgroundColor: "#ffffff" }} />
       </button>
 
-      {/* ── Backdrop (always mounted, fades in/out) ──────────────── */}
-      <motion.div
-        onClick={close}
-        animate={open ? { opacity: 1, pointerEvents: "auto" } : { opacity: 0, pointerEvents: "none" }}
-        transition={{ duration: 0.25 }}
-        className="fixed inset-0 z-[100] bg-black/55"
-        style={{ willChange: "opacity" }}
-      />
+      {/* ── Backdrop ──────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="backdrop"
+            onClick={close}
+            variants={backdropVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className="fixed inset-0 z-[100] bg-black/55"
+            style={{ willChange: "opacity" }}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* ── Sidebar panel (always mounted, translates in/out) ────── */}
+      {/* ── Sidebar panel ─────────────────────────────────────────────────── */}
       <motion.aside
-        animate={{ x: open ? 0 : "-100%" }}
-        initial={{ x: "-100%" }}
-        transition={{
-          // A spring that feels snappy, not elastic
-          type: "spring",
-          stiffness: 320,
-          damping: 36,
-          mass: 1,
-        }}
+        variants={sidebarVariants}
+        initial="closed"
+        animate={open ? "open" : "closed"}
         className="fixed top-0 left-0 h-full z-[105] flex flex-col justify-center"
         style={{
           width: "min(80vw, 400px)",
-          background: "rgba(13,13,13,0.97)",
+          background: "rgba(10,10,10,0.98)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
           borderRight: "1px solid rgba(255,255,255,0.06)",
-          willChange: "transform",    // GPU-composited layer — zero layout cost
+          willChange: "transform",
         }}
       >
-        {/* Decorative accent bar */}
-        <span
-          className="absolute top-0 left-0 h-full w-[3px]"
+        {/* Decorative gradient accent bar — scaleY animates from 0 → 1 */}
+        <motion.span
+          variants={accentBarVariants}
+          className="absolute top-0 left-0 h-full w-[3px] origin-top"
           style={{
-            background: `linear-gradient(to bottom, transparent 10%, ${ACCENT} 50%, transparent 90%)`,
+            background: `linear-gradient(to bottom, transparent 5%, ${ACCENT} 40%, ${ACCENT_BLUE} 75%, transparent 95%)`,
           }}
         />
 
-        {/* Nav items */}
-        <div className="flex flex-col gap-7 pl-10 pr-6">
-          {MENU_ITEMS.map((item, i) => (
-            <NavItem key={item.href} item={item} index={i} />
+        {/* Subtle top-left glow for depth */}
+        <span
+          className="absolute top-0 left-0 w-48 h-48 rounded-full pointer-events-none"
+          style={{
+            background: `radial-gradient(circle, rgba(244,139,52,0.07) 0%, transparent 70%)`,
+            transform: "translate(-30%, -30%)",
+          }}
+        />
+
+        {/* Nav items — stagger is driven by sidebarVariants */}
+        <nav className="flex flex-col gap-7 pl-12 pr-6">
+          {MENU_ITEMS.map((item) => (
+            <NavItem key={item.href} item={item} />
           ))}
-        </div>
+        </nav>
+
+        {/* Divider */}
+        <motion.div
+          variants={{
+            closed: { scaleX: 0, opacity: 0, transition: { duration: 0.2 } },
+            open:   { scaleX: 1, opacity: 1, transition: { duration: 0.5, delay: 0.38, ease: "easeOut" } },
+          }}
+          className="absolute bottom-20 left-12 right-6 h-px origin-left"
+          style={{ background: "rgba(255,255,255,0.07)" }}
+        />
 
         {/* Footer */}
-        <p
-          className="absolute bottom-8 left-10 text-xs tracking-widest uppercase"
+        <motion.p
+          variants={footerVariants}
+          className="absolute bottom-8 left-12 text-xs tracking-widest uppercase"
           style={{ color: "rgba(255,255,255,0.22)" }}
         >
-          Portfolio © 2024
-        </p>
+          Portfolio © 2025
+        </motion.p>
       </motion.aside>
     </>
   );
