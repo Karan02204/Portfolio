@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import type { TargetAndTransition } from "framer-motion";
 
 type MenuItem = {
   label: string;
@@ -155,7 +156,7 @@ function HamburgerBar({
   className = "",
   style = {},
 }: {
-  animate: object;
+  animate: TargetAndTransition;
   className?: string;
   style?: React.CSSProperties;
 }) {
