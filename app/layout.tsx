@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inconsolata } from "next/font/google";
+import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 
 const gued = localFont({
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${gued.variable} ${inconsolata.variable} antialiased`}>
+        <Sidebar />
         {children}
       </body>
     </html>
