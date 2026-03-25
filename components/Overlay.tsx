@@ -1,25 +1,11 @@
 "use client";
 
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import { useRef } from "react";
 
-// ── Helper: compute a safe stagger that always fits inside [inStart, inEnd] ──
-// totalItems = combined count across ALL sibling ScrollMotionText components
-// that share the same range (so stagger is consistent across "&" + "engineering.")
-function safeStagger(
-  inStart: number,
-  inEnd: number,
-  totalItems: number,
-  charMode: boolean,
-): { stagger: number; itemDuration: number } {
-  const itemDuration = charMode ? 0.04 : 0.08;
-  const budget       = inEnd - inStart;
-  const maxStagger   = totalItems > 1
-    ? (budget - itemDuration) / (totalItems - 1)
-    : 0;
-  const preferred    = charMode ? 0.015 : 0.025;
-  return { stagger: Math.min(preferred, maxStagger), itemDuration };
-}
-
+// A custom text animator that hooks precisely into the scroll bar.
+// It splits strings into words or characters and perfectly staggers their 
+// y-offset and opacity along the track.
 function ScrollMotionText({
   text,
   progress,
@@ -27,7 +13,6 @@ function ScrollMotionText({
   className = "",
   baseStagger = 0,
   charMode = false,
-  totalItems,          // pass total item count across all sibling instances
 }: {
   text: string;
   progress: MotionValue<number>;
@@ -35,37 +20,29 @@ function ScrollMotionText({
   className?: string;
   baseStagger?: number;
   charMode?: boolean;
-  totalItems?: number;
 }) {
-  const items    = charMode ? text.split("") : text.split(" ");
-  const inStart  = range[0];
-  const inEnd    = range[1];
-  const outStart = range[2];
-  const outEnd   = range[3];
+  const items = charMode ? text.split("") : text.split(" ");
+  // Wider stagger for distinct one-by-one effect
+  const stagger = charMode ? 0.015 : 0.025;
+  // Shorter individual fade duration so they snap in crisply
+  const itemDuration = charMode ? 0.04 : 0.08;
 
-  // Total items defaults to this component's own count if not supplied
-  const total = totalItems ?? (baseStagger + items.length);
-  const { stagger, itemDuration } = safeStagger(inStart, inEnd, total, charMode);
+  const isIntro = range.length === 3;
+  const inStart = range[0];
+  const outStart = isIntro ? range[1] : range[2];
+  const outEnd = isIntro ? range[2] : range[3];
 
   return (
     <span className={className}>
       {items.map((item, i) => {
         const globalI = baseStagger + i;
-        const start   = inStart + globalI * stagger;
-        // end must never exceed outStart (monotonic guarantee)
-        const end     = Math.min(start + itemDuration, outStart - 0.001);
+        const start = inStart + globalI * stagger;
+        const end = start + itemDuration; // Individual letter finishes fading in
 
-        const opacity = useTransform(
-          progress,
-          [start, end, outStart, outEnd],
-          [0, 1, 1, 0],
-        );
-        const y = useTransform(
-          progress,
-          [start, end, outStart, outEnd],
-          [30, 0, 0, -30],
-        );
-
+        // Animate up from 30px, hold at 0, go up to -30px 
+        const opacity = useTransform(progress, [start, end, outStart, outEnd], [0, 1, 1, 0]);
+        const y = useTransform(progress, [start, end, outStart, outEnd], [30, 0, 0, -30]);
+        
         const isSpace = item === " ";
 
         return (
@@ -97,11 +74,11 @@ export default function Overlay({
 
   return (
     <div className="absolute inset-0 z-10 h-full w-full pointer-events-none">
-
+      
       {/* Section 1: Introduction */}
       <Section>
-        <div
-          className="relative flex items-center justify-center w-full h-full text-center"
+        <div 
+          className="relative flex items-center justify-center w-full h-full text-center" 
           style={{ fontFamily: "var(--font-inconsolata)" }}
         >
           {/* First Sequence: KARAN */}
@@ -110,24 +87,21 @@ export default function Overlay({
               <ScrollMotionText
                 text="KARAN"
                 progress={scrollYProgress}
-                range={[0, 0.06, 0.12, 0.18]}
+                range={[0, 0.06, 0.12, 0.18]} // [inStart, inEnd, outStart, outEnd]
                 charMode={true}
               />
             </h1>
           </div>
-
+          
           {/* Second Sequence: WEB DEVELOPER */}
           <div className="absolute w-full flex flex-col justify-center items-center">
             <h2 className="text-6xl md:text-[10rem] text-center flex flex-col items-center leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
-              {/* WEB = 1 word, DEVELOPER = 1 word, total = 2 items */}
               <div className="block">
                 <ScrollMotionText
                   text="WEB"
                   progress={scrollYProgress}
                   range={[0.22, 0.28, 0.36, 0.42]}
                   charMode={false}
-                  totalItems={2}
-                  baseStagger={0}
                 />
               </div>
               <div className="block">
@@ -135,9 +109,8 @@ export default function Overlay({
                   text="DEVELOPER"
                   progress={scrollYProgress}
                   range={[0.22, 0.28, 0.36, 0.42]}
+                  baseStagger={1} // Flows continuously from WEB
                   charMode={false}
-                  totalItems={2}
-                  baseStagger={1}
                 />
               </div>
             </h2>
@@ -146,7 +119,6 @@ export default function Overlay({
       </Section>
 
       {/* Section 2: Statement */}
-      {/* "I build digital" = 3 words, "experiences." = 1 word, total = 4 */}
       <Section>
         <div className="w-full text-left overflow-hidden">
           <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
@@ -155,8 +127,6 @@ export default function Overlay({
                 text="I build digital"
                 progress={scrollYProgress}
                 range={[0.48, 0.54, 0.68, 0.74]}
-                totalItems={4}
-                baseStagger={0}
               />
             </div>
             <div className="block mt-2">
@@ -165,7 +135,6 @@ export default function Overlay({
                 className="[color:#f48b34]"
                 progress={scrollYProgress}
                 range={[0.48, 0.54, 0.68, 0.74]}
-                totalItems={4}
                 baseStagger={3}
               />
             </div>
@@ -174,7 +143,6 @@ export default function Overlay({
       </Section>
 
       {/* Section 3: Values */}
-      {/* "Bridging design" = 2 words, "&" = 1 word, "engineering." = 1 word, total = 4 */}
       <Section>
         <div className="w-full ml-auto text-right overflow-hidden">
           <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
@@ -182,25 +150,21 @@ export default function Overlay({
               <ScrollMotionText
                 text="Bridging design"
                 progress={scrollYProgress}
-                range={[0.76, 0.82, 0.88, 0.94]}
-                totalItems={4}
-                baseStagger={0}
+                range={[0.80, 0.86, 0.94, 1.0]}
               />
             </div>
             <div className="block mt-2">
               <ScrollMotionText
                 text="&"
                 progress={scrollYProgress}
-                range={[0.62, 0.68, 0.74, 0.80]}
-                totalItems={4}
+                range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={2}
               />
               <ScrollMotionText
                 text="engineering."
                 className="[color:#5086d0]"
                 progress={scrollYProgress}
-                range={[0.62, 0.68, 0.74, 0.80]}
-                totalItems={4}
+                range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={3}
               />
             </div>
