@@ -10,7 +10,7 @@ export default function Home() {
       <ScrollyExperience />
       
       {/* Cinematic burn separator integrating seamlessly with the dark background */}
-      <div className="relative w-full h-[30vh] md:h-[50vh] z-20 overflow-hidden">
+      {/* <div className="relative w-full h-[30vh] md:h-[50vh] z-20 overflow-hidden">
         <BurnTransition 
           color="#121212" 
           transitionColor="#f48537" 
@@ -19,9 +19,9 @@ export default function Home() {
           movement={{ horizontal: "center", vertical: 0.5 }}
           style={{}}
         />
-      </div>
+      </div> */}
 
-      <TextPressure text="About Me"
+      {/* <TextPressure text="About Me"
         flex
         alpha={false}
         stroke={false}
@@ -31,7 +31,7 @@ export default function Home() {
         textColor="#f48537"
         strokeColor="#5227FF"
         minFontSize={30}
-      />
+      /> */}
       <Projects />
     </main>
   );
