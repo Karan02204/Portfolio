@@ -182,7 +182,7 @@ export default function Overlay({
               <ScrollMotionText
                 text="Bridging design"
                 progress={scrollYProgress}
-                range={[0.62, 0.68, 0.74, 0.80]}
+                range={[0.76, 0.82, 0.88, 0.94]}
                 totalItems={4}
                 baseStagger={0}
               />
