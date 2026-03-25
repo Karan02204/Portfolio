@@ -79,11 +79,11 @@ export default function Overlay({
       <Section>
         <div 
           className="relative flex items-center justify-center w-full h-full text-center" 
-          style={{ fontFamily: "var(--font-inconsolata)" }}
+          style={{ fontFamily: "var(--font-gued)" }}
         >
           {/* First Sequence: KARAN */}
           <div className="absolute w-full flex justify-center items-center">
-            <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
+            <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-wider text-white drop-shadow-lg overflow-hidden">
               <ScrollMotionText
                 text="KARAN"
                 progress={scrollYProgress}
@@ -145,7 +145,7 @@ export default function Overlay({
       {/* Section 3: Values */}
       <Section>
         <div className="w-full ml-auto text-right overflow-hidden">
-          <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
+          <div className="text-5xl md:text-[6rem] font-bold leading-none whitespace-normal tracking-wide text-white">
             <div className="block">
               <ScrollMotionText
                 text="Bridging design"

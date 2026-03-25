@@ -7,20 +7,14 @@ export default function Home() {
   return (
     <main className="bg-[#121212] min-h-screen">
       <ScrollyExperience />
-      <ScrollFloat animationDuration={1} ease='back.inOut(2)' scrollStart='center bottom+=50%'
-        scrollEnd='bottom bottom-=40%'
-        stagger={0.03}>
-        <TextPressure text="About Me"
-          flex
-          alpha={false}
-          stroke={false}
-          width
-          weight
-          italic
-          textColor="#f48537"
-          strokeColor="#5227FF"
-          minFontSize={30}
-        />
+      <ScrollFloat
+        textClassName="text-6xl md:text-[10rem] font-bold tracking-wider text-white"
+        containerClassName="flex justify-center my-20"
+        stagger={0.03}
+        scrollStart="top 90%"
+        scrollEnd="top 20%"
+      >
+        About Me
       </ScrollFloat>
       <Projects />
     </main>
