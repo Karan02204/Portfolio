@@ -14,59 +14,69 @@ export default function ScrollyExperience() {
     offset: ["start start", "end end"],
   });
 
-  // Burn starts fading in at 88% scroll and is fully visible at 100%
-  // This maps to roughly frames 210-240 — the dark/burn ending of your video
-  const burnOpacity = useTransform(scrollYProgress, [0.88, 1], [0, 1]);
+  // The burn wipe: translateY goes from +100% (fully below viewport) to 0%
+  // (fully covering viewport). This happens in the last 15% of scroll.
+  // Result: the burn component physically slides UP from the bottom — 
+  // combined with its own wavy torn-paper edge, it looks like fire eating upward.
+  const burnY = useTransform(scrollYProgress, [0.85, 1], ["100%", "0%"]);
 
-  // Projects section peeks in from below as burn completes
-  // We shift the sticky canvas up slightly at the very end to reveal what's beneath
-  const canvasY = useTransform(scrollYProgress, [0.95, 1], ["0%", "0%"]);
+  // Simultaneously, push the canvas upward slightly so it feels like
+  // the burn is consuming it from below
+  const canvasY = useTransform(scrollYProgress, [0.85, 1], ["0%", "-4%"]);
 
   return (
-    <>
-      {/* ── Main scrollytelling container ── */}
-      <div ref={containerRef} className="relative h-[1200vh]">
+    <div ref={containerRef} className="relative h-[1200vh]">
 
-        {/* Layer 1: Image sequence canvas — the scrollytelling frames */}
+      {/* Layer 1: Image sequence canvas */}
+      <motion.div
+        className="sticky top-0 h-screen w-full"
+        style={{ y: canvasY }}
+      >
         <ScrollyCanvas scrollYProgress={scrollYProgress} />
+      </motion.div>
 
-        {/* Layer 2: Overlay text animations */}
-        <Overlay scrollYProgress={scrollYProgress} />
+      {/* Layer 2: Overlay text — sits above canvas */}
+      <Overlay scrollYProgress={scrollYProgress} />
 
-        {/* Layer 3: BurnTransition — sticky, sits ON TOP of the canvas
-            and fades in as the user reaches the end of the scroll.
-            position: sticky + top: 0 + h-screen means it always covers
-            the viewport exactly like the canvas does. */}
+      {/* Layer 3: Burn wipe — sticky, slides UP from bottom over the canvas.
+          The outer div is sticky and full-screen.
+          The inner motion.div translates from 100% → 0%, 
+          creating a bottom-to-top wipe of the burn effect.
+          overflow-hidden on the outer div clips anything below the viewport. */}
+      <div
+        className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none"
+        style={{
+          marginTop: "-100vh", // stack directly over canvas layer
+          zIndex: 30,
+        }}
+      >
         <motion.div
-          className="sticky top-0 h-screen w-full pointer-events-none"
+          className="absolute inset-0 w-full"
           style={{
-            opacity: burnOpacity,
-            // Pull it up so it stacks directly over the canvas
-            marginTop: "-100vh",
-            // Ensure it sits above canvas and overlay text
-            zIndex: 20,
+            y: burnY,
+            // Make it taller than viewport so the wavy top edge
+            // of the burn is always visible as it enters from below
+            height: "140%",
+            top: "-40%",
           }}
         >
           <BurnTransition
             color="#121212"
-            transitionColor="#ffffff"
+            transitionColor="#ffffffff"
             noiseScale={0.37}
-            noiseIntensity={0.3}
-            scrollSensitivity={0.01}
-            baseAnimationSpeed={0.1}
-            edgeSoftness={0.4}
-            bloomIntensity={0.5}
-            bloomRadius={0.5}
+            noiseIntensity={0.45}
+            scrollSensitivity={0}
+            baseAnimationSpeed={0.08}
+            edgeSoftness={0.5}
+            bloomIntensity={0.6}
+            bloomRadius={0.4}
             parallaxEnabled={false}
-            movement={{ horizontal: "center", vertical: 0.5 }}
+            movement={{ horizontal: "center", vertical: 0.3 }}
             style={{ width: "100%", height: "100%" }}
           />
         </motion.div>
-
       </div>
 
-      {/* ── Projects section sits directly after — no gap ── */}
-      {/* The burn transition visually "eats through" into this section */}
-    </>
+    </div>
   );
 }
