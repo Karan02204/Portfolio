@@ -24,33 +24,22 @@ interface FocusRailProps {
   className?: string;
 }
 
-/**
- * Helper to wrap indices (e.g., -1 becomes length-1)
- */
 function wrap(min: number, max: number, v: number) {
   const rangeSize = max - min;
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 }
 
-/**
- * Physics Configuration
- * Base spring for spatial movement (x/z)
- */
 const BASE_SPRING = {
-  type: "spring",
+  type: "spring" as const,
   stiffness: 300,
   damping: 30,
   mass: 1,
 };
 
-/**
- * Scale Spring
- * Bouncier spring specifically for the visual "Click/Tap" feedback on the center card
- */
 const TAP_SPRING = {
-  type: "spring",
+  type: "spring" as const,
   stiffness: 450,
-  damping: 18, // Lower damping = subtle overshoot/wobble "tap"
+  damping: 18,
   mass: 1,
 };
 
@@ -70,7 +59,6 @@ export function FocusRail({
   const activeIndex = wrap(0, count, active);
   const activeItem = items[activeIndex];
 
-  // --- NAVIGATION HANDLERS ---
   const handlePrev = React.useCallback(() => {
     if (!loop && active === 0) return;
     setActive((p) => p - 1);
@@ -81,57 +69,43 @@ export function FocusRail({
     setActive((p) => p + 1);
   }, [loop, active, count]);
 
-  // --- MOUSE WHEEL / TRACKPAD LOGIC ---
   const onWheel = React.useCallback(
     (e: React.WheelEvent) => {
       const now = Date.now();
-      // Debounce: prevent rapid firing from inertia scrolling (400ms lockout)
       if (now - lastWheelTime.current < 400) return;
-
-      // Detect horizontal scroll primarily, but also fallback to vertical if shift is held
       const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
       const delta = isHorizontal ? e.deltaX : e.deltaY;
-
-      // Threshold to avoid accidental micro-scrolls
       if (Math.abs(delta) > 20) {
-        if (delta > 0) {
-          handleNext();
-        } else {
-          handlePrev();
-        }
+        if (delta > 0) handleNext();
+        else handlePrev();
         lastWheelTime.current = now;
       }
     },
     [handleNext, handlePrev]
   );
 
-  // Autoplay logic
   React.useEffect(() => {
     if (!autoPlay || isHovering) return;
     const timer = setInterval(() => handleNext(), interval);
     return () => clearInterval(timer);
   }, [autoPlay, isHovering, handleNext, interval]);
 
-  // Keyboard navigation
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") handlePrev();
     if (e.key === "ArrowRight") handleNext();
   };
 
-  // --- SWIPE / DRAG LOGIC ---
   const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
+  const swipePower = (offset: number, velocity: number) =>
+    Math.abs(offset) * velocity;
 
-  const onDragEnd = (e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
+  const onDragEnd = (
+    _e: MouseEvent | TouchEvent | PointerEvent,
+    { offset, velocity }: PanInfo
+  ) => {
     const swipe = swipePower(offset.x, velocity.x);
-
-    if (swipe < -swipeConfidenceThreshold) {
-      handleNext();
-    } else if (swipe > swipeConfidenceThreshold) {
-      handlePrev();
-    }
+    if (swipe < -swipeConfidenceThreshold) handleNext();
+    else if (swipe > swipeConfidenceThreshold) handlePrev();
   };
 
   const visibleIndices = [-2, -1, 0, 1, 2];
@@ -189,12 +163,10 @@ export function FocusRail({
             const isCenter = offset === 0;
             const dist = Math.abs(offset);
 
-            // Dynamic transforms
             const xOffset = offset * 320;
             const zOffset = -dist * 180;
             const scale = isCenter ? 1 : 0.85;
             const rotateY = offset * -20;
-
             const opacity = isCenter ? 1 : Math.max(0.1, 1 - dist * 0.5);
             const blur = isCenter ? 0 : dist * 6;
             const brightness = isCenter ? 1 : 0.5;
@@ -210,19 +182,21 @@ export function FocusRail({
                 animate={{
                   x: xOffset,
                   z: zOffset,
-                  scale: scale, // Trigger "tap" via TAP_SPRING when this changes
-                  rotateY: rotateY,
-                  opacity: opacity,
+                  scale,
+                  rotateY,
+                  opacity,
                   filter: `blur(${blur}px) brightness(${brightness})`,
                 }}
-                transition={(val) => {
-                    // Use bouncier spring for scale to create the "Tap" effect
-                    if (val === "scale") return TAP_SPRING;
-                    return BASE_SPRING;
+                // ✅ Per-property transitions as nested keys — no function
+                transition={{
+                  scale: TAP_SPRING,
+                  x: BASE_SPRING,
+                  z: BASE_SPRING,
+                  rotateY: BASE_SPRING,
+                  opacity: { duration: 0.3, ease: "easeOut" as const },
+                  filter: { duration: 0.3, ease: "easeOut" as const },
                 }}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
+                style={{ transformStyle: "preserve-3d" }}
                 onClick={() => {
                   if (offset !== 0) setActive((p) => p + offset);
                 }}
@@ -232,8 +206,6 @@ export function FocusRail({
                   alt={item.title}
                   className="h-full w-full rounded-2xl object-cover pointer-events-none"
                 />
-
-                {/* Lighting layers */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
                 <div className="absolute inset-0 rounded-2xl bg-black/10 pointer-events-none mix-blend-multiply" />
               </motion.div>
