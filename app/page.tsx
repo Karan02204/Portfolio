@@ -13,7 +13,7 @@ export default function Home() {
       <div className="relative w-full h-[30vh] md:h-[50vh] z-20 overflow-hidden">
         <BurnTransition 
           color="#121212" 
-          transitionColor="#e48537" 
+          transitionColor="#f48537" 
           noiseScale={0.37}
           parallaxEnabled={true} 
           movement={{ horizontal: "center", vertical: 0.5 }}
@@ -28,9 +28,9 @@ export default function Home() {
         width
         weight
         italic
-        textColor="#ffffff"
+        textColor="#f48537"
         strokeColor="#5227FF"
-        minFontSize={36}
+        minFontSize={30}
       />
       <Projects />
     </main>
