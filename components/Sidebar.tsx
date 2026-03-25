@@ -244,25 +244,6 @@ export default function Sidebar() {
             <NavItem key={item.href} item={item} />
           ))}
         </nav>
-
-        {/* Divider */}
-        <motion.div
-          variants={{
-            closed: { scaleX: 0, opacity: 0, transition: { duration: 0.2 } },
-            open:   { scaleX: 1, opacity: 1, transition: { duration: 0.5, delay: 0.38, ease: "easeOut" } },
-          }}
-          className="absolute bottom-20 left-12 right-6 h-px origin-left"
-          style={{ background: "rgba(255,255,255,0.07)" }}
-        />
-
-        {/* Footer */}
-        <motion.p
-          variants={footerVariants}
-          className="absolute bottom-8 left-12 text-xs tracking-widest uppercase"
-          style={{ color: "rgba(255,255,255,0.22)" }}
-        >
-          Portfolio © 2025
-        </motion.p>
       </motion.aside>
     </>
   );
