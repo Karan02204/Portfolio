@@ -76,53 +76,13 @@ export default function Overlay({
     <div className="absolute inset-0 z-10 h-full w-full pointer-events-none">
       
       {/* Section 1: Introduction */}
-      <Section>
-        <div 
-          className="relative flex items-center justify-center w-full h-full text-center" 
-          style={{ fontFamily: "var(--font-gued)" }}
-        >
-          {/* First Sequence: KARAN */}
-          <div className="absolute w-full flex justify-center items-center">
-            <h1 className="text-[7rem] md:text-[16rem] leading-none font-bold tracking-wider text-white drop-shadow-lg overflow-hidden">
-              <ScrollMotionText
-                text="KARAN"
-                progress={scrollYProgress}
-                range={[0, 0.06, 0.12, 0.18]} // [inStart, inEnd, outStart, outEnd]
-                charMode={true}
-              />
-            </h1>
-          </div>
-          
-          {/* Second Sequence: WEB DEVELOPER */}
-          <div className="absolute w-full flex flex-col justify-center items-center">
-            <h2 className="text-6xl md:text-[10rem] text-center flex flex-col items-center leading-none font-bold tracking-tighter text-white drop-shadow-lg overflow-hidden">
-              <div className="block">
-                <ScrollMotionText
-                  text="WEB"
-                  progress={scrollYProgress}
-                  range={[0.22, 0.28, 0.36, 0.42]}
-                  charMode={false}
-                />
-              </div>
-              <div className="block">
-                <ScrollMotionText
-                  text="DEVELOPER"
-                  progress={scrollYProgress}
-                  range={[0.22, 0.28, 0.36, 0.42]}
-                  baseStagger={1} // Flows continuously from WEB
-                  charMode={false}
-                />
-              </div>
-            </h2>
-          </div>
-        </div>
-      </Section>
+      
 
       {/* Section 2: Statement */}
       <Section>
         <div className="w-full text-left overflow-hidden">
-          <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/90">
-            <div className="block">
+          <div className="text-5xl md:text-[6rem] font-bold leading-none tracking-wide text-white/80">
+            <div className="block text-wrap">
               <ScrollMotionText
                 text="I build digital"
                 progress={scrollYProgress}
@@ -132,7 +92,7 @@ export default function Overlay({
             <div className="block mt-2">
               <ScrollMotionText
                 text="experiences."
-                className="[color:#f48b34]"
+                // className="[color:#f48b34]"
                 progress={scrollYProgress}
                 range={[0.48, 0.54, 0.68, 0.74]}
                 baseStagger={3}
@@ -144,8 +104,8 @@ export default function Overlay({
 
       {/* Section 3: Values */}
       <Section>
-        <div className="w-full ml-auto text-right overflow-hidden">
-          <div className="text-5xl md:text-[6rem] font-bold leading-none whitespace-normal tracking-wide text-white">
+        <div className="w-[40%] ml-auto text-right overflow-hidden pr-8">
+          <div className="text-5xl md:text-[6rem] font-bold leading-[1.1] tracking-tight text-white/80">
             <div className="block">
               <ScrollMotionText
                 text="Bridging design"
@@ -162,7 +122,7 @@ export default function Overlay({
               />
               <ScrollMotionText
                 text="engineering."
-                className="[color:#5086d0]"
+                // className="[color:#5086d0]"
                 progress={scrollYProgress}
                 range={[0.80, 0.86, 0.94, 1.0]}
                 baseStagger={3}

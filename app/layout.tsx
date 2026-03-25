@@ -23,6 +23,17 @@ const gued = localFont({
   variable: "--font-gued",
 });
 
+const ABCGravityVariable = localFont({
+  src: [
+    {
+      path: "../public/fonts/abc-gravity-font-family/ABCGravityVariable-Trial.ttf",
+      weight: "400",
+      style: "normal",
+    }
+  ],
+  variable: "--font-ABCGravityVariable",
+});
+
 const inconsolata = Inconsolata({ subsets: ["latin"], variable: "--font-inconsolata" });
 
 export const metadata: Metadata = {
