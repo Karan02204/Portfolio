@@ -9,7 +9,7 @@ export default function Home() {
     <main className="relative bg-[#121212] min-h-screen">
       <div className="fixed inset-0 z-0">
         <img
-          src="/background.png"
+          src="https://res.cloudinary.com/dcwryqkis/image/upload/v1774509362/background.png"
           className="w-full h-full object-cover"
         />
       </div>
