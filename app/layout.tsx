@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Inconsolata, Inter } from "next/font/google";
+import { Inconsolata, Inter, Oswald } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -34,9 +34,25 @@ const ABCGravity = localFont({
       path: "../public/fonts/abc-gravity-font-family/ABCGravity-Normal-Trial.otf",
       weight: "400",
       style: "normal",
+    },
+    {
+      path: "../public/fonts/abc-gravity-font-family/ABCGravity-Normal-Trial.otf",
+      weight: "300",
+      style: "normal",
     }
   ],
   variable: "--font-ABCGravity",
+});
+
+const oswald = localFont({
+  src: [
+    {
+      path: "../public/fonts/oswald/Oswald-Light.ttf",
+      weight: "400",
+      style: "Normal",
+    },
+  ],
+  variable: "--font-oswald",
 });
 
 const inconsolata = Inconsolata({ subsets: ["latin"], variable: "--font-inconsolata" });
@@ -53,7 +69,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} antialiased`}>
+      <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} ${oswald.variable} antialiased`}>
         <Sidebar />
         {children}
       </body>

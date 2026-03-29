@@ -49,23 +49,23 @@ export function VerticalImageStack() {
     }
   }
 
-  const handleWheel = useCallback(
-    (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > 30) {
-        if (e.deltaY > 0) {
-          navigate(1)
-        } else {
-          navigate(-1)
-        }
-      }
-    },
-    [navigate],
-  )
+  // const handleWheel = useCallback(
+  //   (e: WheelEvent) => {
+  //     if (Math.abs(e.deltaY) > 30) {
+  //       if (e.deltaY > 0) {
+  //         navigate(1)
+  //       } else {
+  //         navigate(-1)
+  //       }
+  //     }
+  //   },
+  //   [navigate],
+  // )
 
-  useEffect(() => {
-    window.addEventListener("wheel", handleWheel, { passive: true })
-    return () => window.removeEventListener("wheel", handleWheel)
-  }, [handleWheel])
+  // useEffect(() => {
+  //   window.addEventListener("wheel", handleWheel, { passive: true })
+  //   return () => window.removeEventListener("wheel", handleWheel)
+  // }, [handleWheel])
 
   const getCardStyle = (index: number) => {
     const total = images.length
@@ -96,8 +96,51 @@ export function VerticalImageStack() {
     return Math.abs(diff) <= 2
   }
 
+  const containerRef = useRef(null);
+
+  // useEffect(() => {
+  //   const container = containerRef.current;
+  //   if (!container) return;
+
+  //   let rafId: number;
+  //   let lastTime = 0;
+
+  //   const handleWheel = (e: WheelEvent) => {
+  //     e.preventDefault();
+
+  //     const now = Date.now();
+  //     if (now - lastTime < 400) return;
+
+  //     const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+  //     const delta = isHorizontal ? e.deltaX : e.deltaY;
+
+  //     if (Math.abs(delta) > 20) {
+  //       if (delta > 0) {
+  //         navigate(1);
+  //       } else {
+  //         navigate(-1);
+  //       }
+  //       lastTime = now;
+  //     }
+  //   };
+
+  //   container.addEventListener("wheel", handleWheel, { passive: false });
+
+  //   return () => {
+  //     container.removeEventListener("wheel", handleWheel);
+  //   };
+  // }, [navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      navigate(1);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [navigate]);
+
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-transparent">
+    <div ref={containerRef} className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-transparent">
       {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.02] blur-3xl" />

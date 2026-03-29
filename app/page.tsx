@@ -1,18 +1,16 @@
 import ScrollyExperience from "@/components/ScrollyExperience";
 import Projects from "@/components/Projects";
-import ScrollReveal from "@/components/ScrollReveal";
-import ScrollFloat from "@/components/ScrollFloat";
 import { VerticalImageStack } from "@/components/ui/vertical-image-stack";
 import { FocusRail , type FocusRailItem } from "@/components/focusRail";
 
-const DEMO_ITEMS: FocusRailItem[] = [
+const PROJECTS: FocusRailItem[] = [
   {
     id: 1,
     title: "Pitara",
     description: "A beautiful, modern gift shop application built with React, Node.js, and MongoDB. Features a curated gift catalog, custom hamper builder, and seamless checkout experience.",
     meta: "",
     imageSrc: "/pitara_01.jpg",
-    href: "#tokyo",
+    href: "https://pitarareal.vercel.app",
   },
   {
     id: 2,
@@ -20,7 +18,7 @@ const DEMO_ITEMS: FocusRailItem[] = [
     description: "An interactive cybersecurity learning platform built with HTML, Tailwind CSS, JavaScript, and PHP, featuring hands-on OWASP Top 10 vulnerability simulations, side-by-side secure vs vulnerable implementations, and in-depth mitigation techniques for real-world web security mastery.",
     meta: "",
     imageSrc: "/web_nexus_01.jpg",
-    href: "#nordic",
+    href: "https://web-nexus.rf.gd",
   },
   {
     id: 3,
@@ -28,15 +26,15 @@ const DEMO_ITEMS: FocusRailItem[] = [
     description: "A cinematic scrollytelling web experience built with Next.js, Framer Motion, and Cloudinary, featuring scroll-synced animations, 160-frame canvas rendering, and advanced frontend optimizations for immersive, high-performance visual storytelling.",
     meta: "",
     imageSrc: "/hanuman_01.jpg",
-    href: "#sahara",
+    href: "https://hanuman-verse.vercel.app",
   },
   {
     id: 4,
-    title: "Cyber Future",
+    title: "Portfolio",
     description: "A glimpse into a technological singularity where AI meets humanity.",
-    meta: "Tech • AI",
-    imageSrc: "aita_ghar_01.jpg",
-    href: "#cyber",
+    meta: "",
+    imageSrc: "karan_01.jpg",
+    href: "https://karanattri.vercel.app",
   },
   
 ];
@@ -60,7 +58,7 @@ export default function Home() {
 
       {/* ABOUT SECTION */}
       <section className="relative z-20 bg-[#131313] py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1400px] mx-auto px-10 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
           
           {/* LEFT SIDE (About Me) */}
           <div className="flex flex-col space-y-10 w-full">
@@ -81,7 +79,7 @@ export default function Home() {
             </div>
 
             {/* PARAGRAPH */}
-            <p className="max-w-2xl text-lg md:text-xl lg:text-3xl leading-relaxed text-gray-300 italic">
+            <p className="max-w-4xl text-lg md:text-xl lg:text-3xl leading-relaxed text-white italic">
               I’m a passionate{" "}
               <span className="text-[#ff5b22] ">
                 Full stack web developer
@@ -100,17 +98,65 @@ export default function Home() {
           
           {/* RIGHT SIDE (Images) */}
           <div className="flex justify-center items-center">
-            <div className="scale-90 lg:scale-100">
+            <div className="scale-90 lg:scale-120">
               <VerticalImageStack />
             </div>
           </div>
 
         </div>
       </section>
-      <FocusRail items={DEMO_ITEMS} 
-        autoPlay={false} 
-        loop={true}/>
-      <Projects />
+      <section className="relative z-20 bg-[#131313] py-24 overflow-hidden">
+
+        {/* 🔥 TOP LEFT FLOATING HEADING */}
+        <div className="absolute top-35 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
+          
+          {/* PROJECTS */}
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            P
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            R
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            O
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            J
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            E
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            C
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            T
+          </h1>
+          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+            S
+          </h1>
+
+          {/* WORK (outlined) */}
+          {/* <h1 className="text-[4rem] md:text-[5rem] lg:text-[4rem] scale-y-150 leading-none text-transparent">
+            <span className="text-outline">WORK</span>
+          </h1> */}
+
+        </div>
+
+        {/* 🔥 FOCUS RAIL (CENTERED) */}
+        <div className="flex justify-center items-center w-full">
+          <div className="w-full">
+            
+            <FocusRail
+              items={PROJECTS}
+              autoPlay={false}
+              interval={4000}
+            />
+
+          </div>
+        </div>
+
+      </section>
     </main>
   );
 }

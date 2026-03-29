@@ -145,9 +145,9 @@ export default function ScrollyCanvas({
       
       
       {/* Dark tint overlay for superior text contrast and depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-[85%] to-[#121212] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-[85%] to-[#131313] pointer-events-none" />
       {!isLoaded && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#131313] text-white">
           <p className="animate-pulse tracking-widest text-sm uppercase mb-4">Loading sequence...</p>
           <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden">
             <div 
