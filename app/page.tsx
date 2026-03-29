@@ -41,7 +41,7 @@ const PROJECTS: FocusRailItem[] = [
 
 export default function Home() {
   return (
-    <main className="relative bg-[#131313] min-h-screen">
+    <main id="home" className="relative bg-[#131313] min-h-screen">
       
       {/* Background */}
       <div className="fixed inset-0 z-0">
@@ -57,7 +57,7 @@ export default function Home() {
       </div>
 
       {/* ABOUT SECTION */}
-      <section className="relative z-20 bg-[#131313] py-24">
+      <section id="about" className="relative z-20 bg-[#131313] py-24">
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
           
           {/* LEFT SIDE (About Me) */}
@@ -105,7 +105,7 @@ export default function Home() {
 
         </div>
       </section>
-      <section className="relative z-20 bg-[#131313] py-24 overflow-hidden">
+      <section id="projects" className="relative z-20 bg-[#131313] py-24 overflow-hidden">
 
         {/* 🔥 TOP LEFT FLOATING HEADING */}
         <div className="absolute top-35 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
