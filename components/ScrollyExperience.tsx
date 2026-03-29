@@ -75,7 +75,7 @@ export default function ScrollyExperience() {
   return (
     <div ref={containerRef} className="relative h-[1200vh]">
       <div className="fixed inset-0 flex items-center justify-center">
-        <h1 className="text-[24vw] scale-y-170 font-bold text-white/50 tracking-widest">
+        <h1 className="text-[22vw] scale-y-170 font-bold text-[white]/60 tracking-widest italic">
           <ScrollMotionText
                 text="KARAN"
                 progress={scrollYProgress}

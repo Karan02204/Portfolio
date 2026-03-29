@@ -23,15 +23,20 @@ const gued = localFont({
   variable: "--font-gued",
 });
 
-const ABCGravityVariable = localFont({
+const ABCGravity = localFont({
   src: [
     {
-      path: "../public/fonts/abc-gravity-font-family/ABCGravityVariable-Trial.ttf",
+      path: "../public/fonts/abc-gravity-font-family/ABCGravity-NormalItalic-Trial.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/abc-gravity-font-family/ABCGravity-Normal-Trial.otf",
       weight: "400",
       style: "normal",
     }
   ],
-  variable: "--font-ABCGravityVariable",
+  variable: "--font-ABCGravity",
 });
 
 const inconsolata = Inconsolata({ subsets: ["latin"], variable: "--font-inconsolata" });
@@ -48,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className={`${gued.variable} ${inconsolata.variable} antialiased`}>
+      <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} antialiased`}>
         <Sidebar />
         {children}
       </body>

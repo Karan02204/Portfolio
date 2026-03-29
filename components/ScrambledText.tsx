@@ -31,8 +31,10 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
   useEffect(() => {
     if (!rootRef.current) return;
 
+    // Fix: Split by words AND chars, and ensure words stay as inline-blocks
     const split = SplitText.create(rootRef.current.querySelector('p'), {
-      type: 'chars',
+      type: 'words, chars',
+      wordsClass: 'inline-block', // This forces the browser to keep the word intact
       charsClass: 'inline-block will-change-transform'
     });
 
@@ -42,6 +44,7 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
     });
 
     const handleMove = (e: PointerEvent) => {
+      // Your existing hover logic stays exactly the same!
       split.chars.forEach(el => {
         const c = el as HTMLElement;
         const { left, top, width, height } = c.getBoundingClientRect();

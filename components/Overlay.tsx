@@ -73,7 +73,7 @@ export default function Overlay({
   const scrollYProgress = externalScrollYProgress || internalScrollYProgress;
 
   return (
-    <div className="absolute inset-0 z-10 h-full w-full pointer-events-none">
+    <div className="absolute inset-0 z-10 h-full w-full pointer-events-none italic">
       
       {/* Section 1: Introduction */}
       
