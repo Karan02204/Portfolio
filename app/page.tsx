@@ -1,5 +1,5 @@
 import ScrollyExperience from "@/components/ScrollyExperience";
-import Projects from "@/components/Projects";
+import Skills from "@/components/Skills";
 import { VerticalImageStack } from "@/components/ui/vertical-image-stack";
 import { FocusRail , type FocusRailItem } from "@/components/focusRail";
 
@@ -18,7 +18,7 @@ const PROJECTS: FocusRailItem[] = [
     description: "An interactive cybersecurity learning platform built with HTML, Tailwind CSS, JavaScript, and PHP, featuring hands-on OWASP Top 10 vulnerability simulations, side-by-side secure vs vulnerable implementations, and in-depth mitigation techniques for real-world web security mastery.",
     meta: "",
     imageSrc: "/web_nexus_01.jpg",
-    href: "https://web-nexus.rf.gd",
+    href: "https://webnexus.rf.gd",
   },
   {
     id: 3,
@@ -52,12 +52,15 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative z-10 snap-start snap-always">
+      <div className="relative z-10 snap-start">
         <ScrollyExperience />
       </div>
 
-      {/* ABOUT SECTION */}
-      <section id="about" className="relative z-20 bg-[#131313] h-screen w-full snap-start snap-always flex items-center justify-center py-24">
+      {/* Scroll Trap Container - Snaps perfectly to viewport */}
+      <div className="h-screen w-full snap-start overflow-y-auto snap-y snap-mandatory hide-scrollbar bg-[#131313]">
+        
+        {/* ABOUT SECTION */}
+        <section id="about" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center py-24 ">
           <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
             
             {/* LEFT SIDE (About Me) */}
@@ -105,9 +108,12 @@ export default function Home() {
 
           </div>
         </section>
+
+        {/* SKILLS SECTION */}
+        <Skills />
         
       {/* PROJECT SECTION */}
-      <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start snap-always flex items-center justify-center overflow-hidden">
+      <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center overflow-hidden">
 
           {/* 🔥 TOP LEFT FLOATING HEADING */}
           <div className="absolute top-20 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
@@ -154,6 +160,7 @@ export default function Home() {
           </div>
 
       </section>
+      </div>
     </main>
   );
 }
