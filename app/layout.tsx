@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inconsolata, Inter, Oswald } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import ResumeButton from "@/components/ResumeButton";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -71,6 +72,7 @@ export default function RootLayout({
     <html lang="en" className={cn("font-sans snap-y snap-proximity", inter.variable)}>
       <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} ${oswald.variable} antialiased`}>
         <Sidebar />
+        <ResumeButton />
         {children}
       </body>
     </html>

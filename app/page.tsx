@@ -1,6 +1,7 @@
 import ScrollyExperience from "@/components/ScrollyExperience";
 import Skills from "@/components/Skills";
 import Certificates from "@/components/Certificates";
+import Contact from "@/components/Contact";
 import { VerticalImageStack } from "@/components/ui/vertical-image-stack";
 import { FocusRail , type FocusRailItem } from "@/components/focusRail";
 
@@ -10,7 +11,7 @@ const PROJECTS: FocusRailItem[] = [
     title: "Pitara",
     description: "A beautiful, modern gift shop application built with React, Node.js, and MongoDB. Features a curated gift catalog, custom hamper builder, and seamless checkout experience.",
     meta: "",
-    imageSrc: "/pitara_01.jpg",
+    imageSrc: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/pitara_01.jpg",
     href: "https://pitarareal.vercel.app",
   },
   {
@@ -18,7 +19,7 @@ const PROJECTS: FocusRailItem[] = [
     title: "Web Nexus",
     description: "An interactive cybersecurity learning platform built with HTML, Tailwind CSS, JavaScript, and PHP, featuring hands-on OWASP Top 10 vulnerability simulations, side-by-side secure vs vulnerable implementations, and in-depth mitigation techniques for real-world web security mastery.",
     meta: "",
-    imageSrc: "/web_nexus_01.jpg",
+    imageSrc: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897736/web_nexus_01.jpg",
     href: "https://webnexus.rf.gd",
   },
   {
@@ -26,7 +27,7 @@ const PROJECTS: FocusRailItem[] = [
     title: "HanumanVerse",
     description: "A cinematic scrollytelling web experience built with Next.js, Framer Motion, and Cloudinary, featuring scroll-synced animations, 160-frame canvas rendering, and advanced frontend optimizations for immersive, high-performance visual storytelling.",
     meta: "",
-    imageSrc: "/hanuman_01.jpg",
+    imageSrc: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/hanuman_01.jpg",
     href: "https://hanuman-verse.vercel.app",
   },
   {
@@ -34,7 +35,7 @@ const PROJECTS: FocusRailItem[] = [
     title: "Portfolio",
     description: "A glimpse into a technological singularity where AI meets humanity.",
     meta: "",
-    imageSrc: "karan_01.jpg",
+    imageSrc: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/karan_01.jpg",
     href: "https://karanattri.vercel.app",
   },
   
@@ -166,6 +167,9 @@ export default function Home() {
 
         {/* CERTIFICATES SECTION */}
         <Certificates />
+
+        {/* CONTACT SECTION */}
+        <Contact />
       </div>
     </main>
   );

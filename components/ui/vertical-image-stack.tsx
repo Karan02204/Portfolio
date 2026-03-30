@@ -7,17 +7,17 @@ import Image from "next/image"
 const images = [
   {
     id: 1,
-    src: "/karan-01.jpeg",
+    src: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/karan-01.jpg",
     alt: "Black sneaker with red sole",
   },
   {
     id: 2,
-    src: "/karan-02.jpeg",
+    src: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/karan-02.jpg",
     alt: "White minimalist sneaker",
   },
   {
     id: 3,
-    src: "/karan-03.jpeg",
+    src: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/karan-03.jpg",
     alt: "Navy blue running shoe",
   },
 ]

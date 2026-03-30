@@ -14,6 +14,7 @@ const MENU_ITEMS: MenuItem[] = [
   { label: "Home",    href: "#home" },
   { label: "About",    href: "#about" },
   { label: "Projects",   href: "#projects" },
+  { label: "Certificates", href: "#certificates" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -112,7 +113,7 @@ const footerVariants: Variants = {
 };
 
 // ── Single nav item ──────────────────────────────────────────────────────────
-function NavItem({ item }: { item: MenuItem }) {
+function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
   return (
     <motion.div
       variants={itemVariants}
@@ -136,6 +137,15 @@ function NavItem({ item }: { item: MenuItem }) {
       {/* Label shifts right and recolours */}
       <MotionLink
         href={item.href}
+        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+          e.preventDefault();
+          const targetId = item.href.replace("#", "");
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: "smooth" });
+          }
+          onClick();
+        }}
         variants={{
           rest:  { x: -32, color: "#ffffff" },
           hover: { x: 0,   color: ACCENT },
@@ -239,7 +249,7 @@ export default function Sidebar() {
         {/* Nav items — stagger is driven by sidebarVariants */}
         <nav className="flex flex-col gap-7 pl-12 pr-6">
           {MENU_ITEMS.map((item) => (
-            <NavItem key={item.href} item={item} />
+            <NavItem key={item.href} item={item} onClick={close} />
           ))}
         </nav>
       </motion.aside>
