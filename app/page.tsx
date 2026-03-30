@@ -1,5 +1,6 @@
 import ScrollyExperience from "@/components/ScrollyExperience";
 import Skills from "@/components/Skills";
+import Certificates from "@/components/Certificates";
 import { VerticalImageStack } from "@/components/ui/vertical-image-stack";
 import { FocusRail , type FocusRailItem } from "@/components/focusRail";
 
@@ -111,55 +112,60 @@ export default function Home() {
 
         {/* SKILLS SECTION */}
         <Skills />
+
         
-      {/* PROJECT SECTION */}
-      <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center overflow-hidden">
+        
+        {/* PROJECT SECTION */}
+        <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center overflow-hidden">
 
-          {/* 🔥 TOP LEFT FLOATING HEADING */}
-          <div className="absolute top-20 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
-            
-            {/* PROJECTS */}
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              P
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              R
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              O
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              J
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              E
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              C
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              T
-            </h1>
-            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-              S
-            </h1>
-
-          </div>
-
-          {/* 🔥 FOCUS RAIL (CENTERED) */}
-          <div className="flex justify-center items-center w-full">
-            <div className="w-full">
+            {/* 🔥 TOP LEFT FLOATING HEADING */}
+            <div className="absolute top-20 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
               
-              <FocusRail
-                items={PROJECTS}
-                autoPlay={false}
-                interval={4000}
-              />
+              {/* PROJECTS */}
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                P
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                R
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                O
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                J
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                E
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                C
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                T
+              </h1>
+              <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+                S
+              </h1>
 
             </div>
-          </div>
 
-      </section>
+            {/* 🔥 FOCUS RAIL (CENTERED) */}
+            <div className="flex justify-center items-center w-full">
+              <div className="w-full">
+                
+                <FocusRail
+                  items={PROJECTS}
+                  autoPlay={false}
+                  interval={4000}
+                />
+
+              </div>
+            </div>
+
+        </section>
+
+        {/* CERTIFICATES SECTION */}
+        <Certificates />
       </div>
     </main>
   );
