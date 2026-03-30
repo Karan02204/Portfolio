@@ -213,9 +213,7 @@ export default function Sidebar() {
         className="fixed top-0 left-0 h-full z-[105] flex flex-col justify-center"
         style={{
           width: "min(80vw, 400px)",
-          background: "rgba(10,10,10,0.98)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
+          background: "rgba(14,14,14,0.98)",
           borderRight: "1px solid rgba(255,255,255,0.06)",
           willChange: "transform",
         }}

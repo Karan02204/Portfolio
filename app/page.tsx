@@ -52,109 +52,106 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative z-10">
+      <div className="relative z-10 snap-start snap-always">
         <ScrollyExperience />
       </div>
 
       {/* ABOUT SECTION */}
-      <section id="about" className="relative z-20 bg-[#131313] py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
-          
-          {/* LEFT SIDE (About Me) */}
-          <div className="flex flex-col space-y-10 w-full">
-
-            {/* HEADING */}
-            <div className="flex items-end gap-6 italic">
-              
-              {/* ABOUT (filled) */}
-              <h1 className="text-[4rem] md:text-[7rem] lg:text-[12rem] scale-y-150 text-[#ff5b22] leading-none tracking-tight">
-                ABOUT
-              </h1>
-
-              {/* ME (outlined) */}
-              <h1 className="text-[4rem] md:text-[7rem] lg:text-[8rem] scale-y-150 leading-none tracking-tight text-transparent">
-                <span className="text-outline">ME</span>
-              </h1>
-
-            </div>
-
-            {/* PARAGRAPH */}
-            <p className="max-w-4xl text-lg md:text-xl lg:text-3xl leading-relaxed text-white italic">
-              I’m a passionate{" "}
-              <span className="text-[#ff5b22] ">
-                Full stack web developer
-              </span>{" "}
-              with a strong foundation in{" "}
-              <span className="text-[#ff5b22] ">front-end</span> and{" "}
-              <span className="text-[#ff5b22] ">back-end</span>{" "}
-              technologies, dedicated to building responsive and{" "}
-              <span className="text-[#ff5b22] ">
-                user-friendly web applications
-              </span>
-              . I solve complex problems with clean, efficient code.
-            </p>
-
-          </div>
-          
-          {/* RIGHT SIDE (Images) */}
-          <div className="flex justify-center items-center">
-            <div className="scale-90 lg:scale-120">
-              <VerticalImageStack />
-            </div>
-          </div>
-
-        </div>
-      </section>
-      <section id="projects" className="relative z-20 bg-[#131313] py-24 overflow-hidden">
-
-        {/* 🔥 TOP LEFT FLOATING HEADING */}
-        <div className="absolute top-35 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
-          
-          {/* PROJECTS */}
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            P
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            R
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            O
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            J
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            E
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            C
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            T
-          </h1>
-          <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
-            S
-          </h1>
-
-          {/* WORK (outlined) */}
-          {/* <h1 className="text-[4rem] md:text-[5rem] lg:text-[4rem] scale-y-150 leading-none text-transparent">
-            <span className="text-outline">WORK</span>
-          </h1> */}
-
-        </div>
-
-        {/* 🔥 FOCUS RAIL (CENTERED) */}
-        <div className="flex justify-center items-center w-full">
-          <div className="w-full">
+      <section id="about" className="relative z-20 bg-[#131313] h-screen w-full snap-start snap-always flex items-center justify-center py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
             
-            <FocusRail
-              items={PROJECTS}
-              autoPlay={false}
-              interval={4000}
-            />
+            {/* LEFT SIDE (About Me) */}
+            <div className="flex flex-col space-y-10 w-full">
+
+              {/* HEADING */}
+              <div className="flex items-end gap-6 italic">
+                
+                {/* ABOUT (filled) */}
+                <h1 className="text-[4rem] md:text-[7rem] lg:text-[12rem] scale-y-150 text-[#ff5b22] leading-none tracking-tight">
+                  ABOUT
+                </h1>
+
+                {/* ME (outlined) */}
+                <h1 className="text-[4rem] md:text-[7rem] lg:text-[8rem] scale-y-150 leading-none tracking-tight text-transparent">
+                  <span className="text-outline">ME</span>
+                </h1>
+
+              </div>
+
+              {/* PARAGRAPH */}
+              <p className="max-w-4xl text-lg md:text-xl lg:text-3xl leading-relaxed text-white italic">
+                I’m a passionate{" "}
+                <span className="text-[#ff5b22] ">
+                  Full stack web developer
+                </span>{" "}
+                with a strong foundation in{" "}
+                <span className="text-[#ff5b22] ">front-end</span> and{" "}
+                <span className="text-[#ff5b22] ">back-end</span>{" "}
+                technologies, dedicated to building responsive and{" "}
+                <span className="text-[#ff5b22] ">
+                  user-friendly web applications
+                </span>
+                . I solve complex problems with clean, efficient code.
+              </p>
+
+            </div>
+            
+            {/* RIGHT SIDE (Images) */}
+            <div className="flex justify-center items-center">
+              <div className="scale-90 lg:scale-120">
+                <VerticalImageStack />
+              </div>
+            </div>
 
           </div>
-        </div>
+        </section>
+        
+      {/* PROJECT SECTION */}
+      <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start snap-always flex items-center justify-center overflow-hidden">
+
+          {/* 🔥 TOP LEFT FLOATING HEADING */}
+          <div className="absolute top-20 left-30 z-30 flex flex-col items-start gap-6 pointer-events-none text-transparent">
+            
+            {/* PROJECTS */}
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              P
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              R
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              O
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              J
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              E
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              C
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              T
+            </h1>
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              S
+            </h1>
+
+          </div>
+
+          {/* 🔥 FOCUS RAIL (CENTERED) */}
+          <div className="flex justify-center items-center w-full">
+            <div className="w-full">
+              
+              <FocusRail
+                items={PROJECTS}
+                autoPlay={false}
+                interval={4000}
+              />
+
+            </div>
+          </div>
 
       </section>
     </main>

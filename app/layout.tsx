@@ -68,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html lang="en" className={cn("font-sans scroll-smooth snap-y snap-mandatory", inter.variable)}>
       <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} ${oswald.variable} antialiased`}>
         <Sidebar />
         {children}
