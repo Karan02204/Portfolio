@@ -33,7 +33,7 @@ const PROJECTS: FocusRailItem[] = [
   {
     id: 4,
     title: "Portfolio",
-    description: "A glimpse into a technological singularity where AI meets humanity.",
+    description: "A cinematic, full-stack developer portfolio built with Next.js and Framer Motion — featuring a 240-frame scrollytelling experience, live projects, and a design that bridges engineering precision with creative vision.",
     meta: "",
     imageSrc: "https://res.cloudinary.com/dcwryqkis/image/upload/v1774897735/karan_01.jpg",
     href: "https://karanattri.vercel.app",
