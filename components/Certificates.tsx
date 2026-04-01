@@ -32,7 +32,7 @@ export default function Certificates() {
           <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 text-[#ff5b22] leading-none tracking-normal">
             CERTI
           </h1>
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-[5%]">
+          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-[3%] md:ml-[2%] lg:ml-[2%]">
             <span className="text-outline">FICATES</span>
           </h1>
         </div>
