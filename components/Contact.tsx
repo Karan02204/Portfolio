@@ -70,10 +70,10 @@ export default function Contact() {
         <div className="flex flex-col justify-between h-full">
           <div>
             <div className="flex flex-col items-start italic leading-none mb-10">
-              <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] scale-y-150 text-[#ff5b22] tracking-tight">
+              <h1 className="text-[5rem] md:text-[8rem] lg:text-[8rem] 2xl:text-[12rem] scale-y-150 text-[#ff5b22] tracking-tight">
                 LET'S
               </h1>
-              <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] scale-y-150 tracking-tight text-transparent mt-5">
+              <h1 className="text-[5rem] md:text-[8rem] lg:text-[8rem] 2xl:text-[12rem] scale-y-150 tracking-tight text-transparent lg:mt-5">
                 <span className="text-outline">WORK.</span>
               </h1>
             </div>
@@ -100,7 +100,7 @@ export default function Contact() {
 
         {/* Right Column: High-End Minimal Form */}
         <div className="flex flex-col justify-center w-full max-w-2xl lg:ml-auto">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-20">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-8 md:gap-12 2xl:gap-20">
             
             {/* Name Input */}
             <div className="relative group">
@@ -108,7 +108,7 @@ export default function Contact() {
                 type="text" 
                 name="name"
                 placeholder="WHAT'S YOUR NAME?" 
-                className="w-full bg-transparent border-b-2 border-white/10 pb-6 text-2xl md:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -120,7 +120,7 @@ export default function Contact() {
                 type="email" 
                 name="email"
                 placeholder="YOUR EMAIL?" 
-                className="w-full bg-transparent border-b-2 border-white/10 pb-6 text-2xl md:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -132,7 +132,7 @@ export default function Contact() {
                 name="message"
                 placeholder="TELL ME ABOUT YOUR PROJECT" 
                 rows={3}
-                className="w-full bg-transparent border-b-2 border-white/10 pb-6 text-2xl md:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic resize-none"
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic resize-none"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -149,7 +149,7 @@ export default function Contact() {
               }`}
               whileHover={status !== "success" ? "hover" : "rest"}
             >
-              <h2 className={`text-5xl md:text-7xl font-bold tracking-tighter italic transition-colors duration-500 ${
+              <h2 className={`text-3xl md:text-5xl 2xl:text-7xl font-bold tracking-tighter italic transition-colors duration-500 ${
                 status === "success" 
                   ? "text-[#5086d0]" 
                   : "text-[#ff5b22] group-hover:text-white"

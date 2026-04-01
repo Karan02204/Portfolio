@@ -22,17 +22,17 @@ export default function Certificates() {
         
         {/* Floating Background Text */}
         <div className="absolute top-20 left-10 pointer-events-none opacity-50 z-0">
-          <h1 className="text-[10rem] md:text-[18rem] lg:text-[24rem] font-bold text-transparent text-outline leading-none opacity-5 -rotate-2 scale-150 transform translate-x-20">
+          <h1 className="text-[10rem] md:text-[18rem] lg:text-[16rem] 2xl:text-[24rem] font-bold text-transparent text-outline leading-none opacity-5 -rotate-2 scale-150 transform translate-x-20">
             PROVEN
           </h1>
         </div>
 
         {/* Title */}
-        <div className="flex items-end gap-6 italic mb-16 md:mb-24 z-10">
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[8rem] scale-y-150 scale-x-110 text-[#ff5b22] leading-none tracking-normal">
+        <div className="flex items-end gap-6 italic mb-16 md:mb-24 z-10 w-full justify-center lg:justify-start">
+          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 text-[#ff5b22] leading-none tracking-normal">
             CERTI
           </h1>
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-7">
+          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-[5%]">
             <span className="text-outline">FICATES</span>
           </h1>
         </div>
@@ -45,7 +45,7 @@ export default function Certificates() {
             return (
               <motion.div 
                 key={cert.id}
-                className="group relative flex items-center justify-between py-6 md:py-10 border-b border-white/5 cursor-crosshair overflow-hidden"
+                className="group relative flex items-center justify-between py-6 md:py-8 lg:py-6 xl:py-10 border-b border-white/5 cursor-crosshair overflow-hidden"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -59,7 +59,7 @@ export default function Certificates() {
                     0{index + 1}
                   </span>
                   
-                  <h2 className={`text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight italic scale-y-110 transition-colors duration-300 ${isHovered ? 'text-transparent text-outline' : 'text-white'}`}>
+                  <h2 className={`text-4xl md:text-5xl lg:text-5xl 2xl:text-7xl font-bold tracking-tight italic scale-y-110 transition-colors duration-300 ${isHovered ? 'text-transparent text-outline' : 'text-white'}`}>
                     {cert.title}
                   </h2>
                 </motion.div>

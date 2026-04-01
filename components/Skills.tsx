@@ -28,7 +28,7 @@ const MarqueeRow = ({ items, direction = 1, speed = 40, outlined = false }: { it
         {items.map((item, i) => (
           <span 
             key={i} 
-            className={`text-[4rem] md:text-[6rem] lg:text-[8rem] italic scale-y-[1.2] tracking-normal leading-none select-none ${
+            className={`text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] italic scale-y-[1.2] tracking-normal leading-none select-none ${
               outlined 
                 ? "text-transparent text-outline" 
                 : "text-white/10 hover:text-[#ff5b22] transition-colors duration-500"
@@ -49,7 +49,7 @@ export default function Skills() {
       {/* Floating Heading */}
       <div className="absolute top-12 left-12 md:top-24 md:left-24 z-30 pointer-events-none">
         <div className="flex items-end gap-4 md:gap-6 italic">
-          <h2 className="text-[3rem] md:text-[6rem] lg:text-[8rem] scale-y-150 text-[#ff5b22] leading-none tracking-normal transform -rotate-3">
+          <h2 className="text-[3rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 text-[#ff5b22] leading-none tracking-normal transform -rotate-3">
             SKILLS
           </h2>
         </div>
