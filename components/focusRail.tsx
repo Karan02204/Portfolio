@@ -107,7 +107,7 @@ export function FocusRail({
   return (
     <div
       className={cn(
-        "group relative flex h-[1000px] w-full flex-col overflow-hidden bg-neutral-950 text-white outline-none select-none overflow-x-hidden",
+        "group relative flex h-[1000px] w-full flex-col overflow-hidden bg-[#131313] text-white outline-none select-none overflow-x-hidden",
         className
       )}
       onMouseEnter={() => setIsHovering(true)}
@@ -168,7 +168,7 @@ export function FocusRail({
               <motion.div
                 key={item.id}
                 className={cn(
-                  "absolute aspect-[16/9] w-[360px] md:w-[1060px] rounded-2xl  shadow-2xl transition-shadow duration-300",
+                  "absolute aspect-[16/9] w-[80vw] md:w-[70vw] lg:w-[60vw] 2xl:w-[1060px] rounded-2xl shadow-2xl transition-shadow duration-300",
                   isCenter ? "z-20 shadow-white/10" : "z-10"
                 )}
                 initial={false}
@@ -204,8 +204,8 @@ export function FocusRail({
         </motion.div>
 
         {/* Info */}
-        <div className="mx-auto mt-12 flex w-full max-w-7xl flex-col items-center justify-between gap-6 md:flex-row pointer-events-auto">
-          <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left h-32 justify-center">
+        <div className="mx-auto mt-6 xl:mt-12 flex w-full max-w-[1300px] flex-col items-center justify-between gap-6 md:flex-row pointer-events-auto px-4 pl-[8vw] md:pl-[12vw] lg:pl-[20vw] xl:pl-[12vw] lg:pr-8 z-30">
+          <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left h-32 justify-center max-w-xl 2xl:max-w-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeItem.id}

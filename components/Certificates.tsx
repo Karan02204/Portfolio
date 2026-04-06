@@ -14,25 +14,25 @@ export default function Certificates() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="certificates" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex flex-col items-center justify-center overflow-hidden py-24">
+    <section id="certificates" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex flex-col items-center justify-center overflow-hidden py-12 lg:py-16 2xl:py-24">
       {/* Background ambient glow */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#5086d0]/5 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
 
       <div className="w-full max-w-[1700px] mx-auto px-10 flex flex-col items-start z-10 w-full">
         
         {/* Floating Background Text */}
-        <div className="absolute top-20 left-10 pointer-events-none opacity-50 z-0">
+        <div className="absolute top-24 lg:top-32 left-10 lg:left-32 pointer-events-none opacity-50 z-0">
           <h1 className="text-[10rem] md:text-[18rem] lg:text-[16rem] 2xl:text-[24rem] font-bold text-transparent text-outline leading-none opacity-5 -rotate-2 scale-150 transform translate-x-20">
             PROVEN
           </h1>
         </div>
 
         {/* Title */}
-        <div className="flex items-end gap-6 italic mb-16 md:mb-24 z-10 w-full justify-center lg:justify-start">
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 text-[#ff5b22] leading-none tracking-normal">
+        <div className="flex items-end gap-6 italic mb-10 md:mb-16 z-10 w-full justify-center lg:justify-start lg:pl-[6vw]">
+          <h1 className="text-[3rem] md:text-[5rem] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[8rem] scale-y-150 scale-x-110 text-[#ff5b22] leading-none tracking-normal">
             CERTI
           </h1>
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[6rem] 2xl:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-[3%] md:ml-[2%] lg:ml-[2%]">
+          <h1 className="text-[3rem] md:text-[5rem] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[8rem] scale-y-150 scale-x-110 leading-none tracking-normal text-transparent ml-[3%] md:ml-[2%] lg:ml-[2%]">
             <span className="text-outline">FICATES</span>
           </h1>
         </div>

@@ -44,7 +44,7 @@ const MarqueeRow = ({ items, direction = 1, speed = 40, outlined = false }: { it
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex flex-col items-center justify-center overflow-hidden py-24">
+    <section id="skills" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex flex-col items-center justify-center overflow-hidden py-12 lg:py-16 2xl:py-24">
 
       {/* Floating Heading */}
       <div className="absolute top-12 left-12 md:top-24 md:left-24 z-30 pointer-events-none">
@@ -56,7 +56,7 @@ export default function Skills() {
       </div>
 
       {/* Marquees */}
-      <div className="flex flex-col gap-6 md:gap-14 transform -rotate-3 scale-110 w-[180vw] mt-20">
+      <div className="flex flex-col gap-6 md:gap-14 transform -rotate-3 scale-110 w-[180vw] mt-10 lg:mt-16 2xl:mt-20">
         <MarqueeRow items={r1} direction={-1} speed={60} outlined={false} />
         <MarqueeRow items={r2} direction={1} speed={75} outlined={true} />
         <MarqueeRow items={r3} direction={-1} speed={50} outlined={false} />

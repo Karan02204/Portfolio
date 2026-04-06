@@ -60,7 +60,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative z-20 bg-[#131313] min-h-screen py-24 w-full snap-start flex items-center justify-center overflow-hidden">
+    <section id="contact" className="relative z-20 bg-[#131313] min-h-screen py-12 lg:py-16 2xl:py-24 w-full snap-start flex items-center justify-center overflow-hidden">
       {/* Heavy ambient background glow blending with the previous sections */}
       {/* <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#ff5b22]/5 blur-[150px] rounded-full mix-blend-screen pointer-events-none" /> */}
 
@@ -84,7 +84,7 @@ export default function Contact() {
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-wrap gap-8 mt-16 md:mt-32">
+          <div className="flex flex-wrap gap-8 mt-10 lg:mt-16 2xl:mt-32">
             {socialLinks.map((link) => (
               <a 
                 key={link.label}

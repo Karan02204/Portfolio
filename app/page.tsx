@@ -62,8 +62,8 @@ export default function Home() {
       <div className="h-screen w-full snap-start overflow-y-auto snap-y snap-mandatory hide-scrollbar bg-[#131313]">
         
         {/* ABOUT SECTION */}
-        <section id="about" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center py-24 ">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-16 items-center">
+        <section id="about" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center py-12 lg:py-16 2xl:py-24 ">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] w-full max-w-[1700px] mx-auto px-10 gap-12 lg:gap-16 items-center">
             
             {/* LEFT SIDE (About Me) */}
             <div className="flex flex-col space-y-10 w-full">
@@ -119,32 +119,32 @@ export default function Home() {
         {/* PROJECT SECTION */}
         <section id="projects" className="relative z-20 bg-[#131313] h-screen w-full snap-start flex items-center justify-center overflow-hidden">
 
-            {/* 🔥 TOP LEFT FLOATING HEADING */}
-            <div className="absolute top-10 left-6 lg:top-20 lg:left-12 2xl:left-30 z-30 flex flex-col items-start gap-4 2xl:gap-6 pointer-events-none text-transparent">
+            {/* 🔥 CENTER LEFT FLOATING HEADING */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-2 md:left-4 lg:left-8 2xl:left-16 z-30 flex flex-col items-center gap-1 xl:gap-2 2xl:gap-4 pointer-events-none text-transparent mt-10">
               
               {/* PROJECTS */}
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 P
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 R
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 O
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 J
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 E
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 C
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 T
               </h1>
-              <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] 2xl:text-[5rem] scale-y-160 scale-x-150 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
+              <h1 className="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[4rem] 2xl:text-[5rem] scale-y-150 scale-x-125 leading-none bg-gradient-to-t from-[#ff5b22] to-transparent bg-clip-text">
                 S
               </h1>
 
