@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function ResumeButton() {
   return (
     <motion.a
-      href="https://drive.google.com/file/d/18y6cfyVP3BjPbpmEvcjZE2y1ibX1mXsJ/view?usp=drive_link" 
+      href="https://drive.google.com/file/d/11pGkelcrFViTW_vzuBRZTgA17-y1cIG7/view?usp=sharing" 
       target="_blank"
       rel="noopener noreferrer"
       className="fixed top-6 right-6 z-[110] group overflow-hidden border border-white/10 px-6 py-3 bg-black/40 backdrop-blur-md flex items-center gap-3 cursor-pointer"
