@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import { Inconsolata, Inter, Oswald } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 import ResumeButton from "@/components/ResumeButton";
+import SmoothScroll from "@/components/SmoothScroll";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -69,11 +71,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans snap-y snap-proximity", inter.variable)}>
+    <html lang="en" className={cn("font-sans", inter.variable)}>
       <body className={`${gued.variable} ${inconsolata.variable} ${ABCGravity.variable} ${oswald.variable} antialiased`}>
-        <Sidebar />
-        <ResumeButton />
-        {children}
+        <SmoothScroll>
+          <Sidebar />
+          <ResumeButton />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
