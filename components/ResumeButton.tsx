@@ -8,11 +8,11 @@ export default function ResumeButton() {
       href="https://drive.google.com/file/d/11pGkelcrFViTW_vzuBRZTgA17-y1cIG7/view?usp=sharing" 
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed top-6 right-6 z-[110] group overflow-hidden border border-white/10 px-6 py-3 bg-black/40 backdrop-blur-md flex items-center gap-3 cursor-pointer"
+      className="fixed top-6 right-6 z-[110] group overflow-hidden border border-white/10 px-6 py-3 bg-black/40 backdrop-blur-md flex items-center gap-3 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff5b22]"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-      aria-label="Download Resume"
+      aria-label="View resume (opens in a new tab)"
     >
       {/* Background slide-in effect */}
       <span className="absolute inset-0 w-full h-full bg-[#ff5b22] transform -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]" />

@@ -3,7 +3,18 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const certificates = [
+type Certificate = {
+  id: number;
+  title: string;
+  issuer: string;
+  year: string;
+  /** Public credential URL. Add one and the row becomes a real link. */
+  url?: string;
+};
+
+// TODO: drop the verification URL into `url` for each of these — an
+// unverifiable certificate list reads as filler to a reviewer.
+const certificates: Certificate[] = [
   { id: 1, title: "Meta React Basics", issuer: "Coursera", year: "2025" },
   { id: 2, title: "Social Networks", issuer: "NPTEL", year: "2025" },
   { id: 3, title: "DSA Training", issuer: "Hitbullseye", year: "2025" },
@@ -41,13 +52,26 @@ export default function Certificates() {
         <div className="w-full flex flex-col border-t border-white/5 z-10 relative">
           {certificates.map((cert, index) => {
             const isHovered = hoveredIndex === index;
-            
+            const Wrapper = cert.url ? motion.a : motion.div;
+
             return (
-              <motion.div 
+              <Wrapper
                 key={cert.id}
-                className="group relative flex items-center justify-between py-6 md:py-8 lg:py-6 xl:py-10 border-b border-white/5 cursor-crosshair overflow-hidden"
+                {...(cert.url
+                  ? {
+                      href: cert.url,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      "aria-label": `${cert.title}, ${cert.issuer} ${cert.year} (opens in a new tab)`,
+                    }
+                  : {})}
+                className={`group relative flex items-center justify-between py-6 md:py-8 lg:py-6 xl:py-10 border-b border-white/5 overflow-hidden rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5b22] ${
+                  cert.url ? "cursor-pointer" : "cursor-default"
+                }`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                onFocus={() => setHoveredIndex(index)}
+                onBlur={() => setHoveredIndex(null)}
               >
                 {/* Number & Title Group */}
                 <motion.div 
@@ -69,8 +93,8 @@ export default function Certificates() {
                   <span className={`text-xl md:text-3xl italic tracking-wider transition-colors duration-300 ${isHovered ? 'text-[#ff5b22]' : 'text-white/40'}`}>
                     {cert.issuer}
                   </span>
-                  <span className="text-white/20 font-mono text-sm md:text-base mt-2">
-                    // {cert.year}
+                  <span className="text-white/45 font-mono text-sm md:text-base mt-2">
+                    {"// "}{cert.year}
                   </span>
                 </div>
 
@@ -81,7 +105,7 @@ export default function Certificates() {
                   animate={{ width: isHovered ? "100%" : "0%" }}
                   transition={{ duration: 0.4, ease: "circOut" }}
                 />
-              </motion.div>
+              </Wrapper>
             )
           })}
         </div>

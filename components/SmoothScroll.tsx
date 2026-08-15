@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Global smooth-scroll provider.
  *
  * - Drives Lenis from the GSAP ticker (single rAF loop for the whole site).
- * - Keeps ScrollTrigger in sync so ScrollFloat / ScrollReveal stay accurate.
+ * - Keeps ScrollTrigger in sync so scroll-driven animations stay accurate.
  * - `allowNestedScroll` lets the snap-mandatory container in app/page.tsx keep
  *   its native scrolling (CSS scroll-snap only behaves natively), while Lenis
  *   takes back over once that container hits its top/bottom edge.

@@ -36,9 +36,11 @@ export default function Contact() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    // Web3Forms configuration
-    // Replace this key with your own from https://web3forms.com !
-    formData.append("access_key", "a0b81959-78f9-41d1-9866-f2a29ed03556");
+    // Web3Forms access keys are public by design, but keep it configurable.
+    formData.append(
+      "access_key",
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "a0b81959-78f9-41d1-9866-f2a29ed03556"
+    );
 
     try {
       setStatus("loading");
@@ -49,11 +51,12 @@ export default function Contact() {
       const data = await response.json();
       if (data.success) {
         setStatus("success");
+        form.reset();
       } else {
         setStatus("error");
         setTimeout(() => setStatus("idle"), 3000);
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 3000);
     }
@@ -71,7 +74,7 @@ export default function Contact() {
           <div>
             <div className="flex flex-col items-start italic leading-none mb-10">
               <h1 className="text-[5rem] md:text-[8rem] lg:text-[8rem] 2xl:text-[12rem] scale-y-150 text-[#ff5b22] tracking-tight">
-                LET'S
+                LET&apos;S
               </h1>
               <h1 className="text-[5rem] md:text-[8rem] lg:text-[8rem] 2xl:text-[12rem] scale-y-150 tracking-tight text-transparent lg:mt-5">
                 <span className="text-outline">WORK.</span>
@@ -86,10 +89,13 @@ export default function Contact() {
           {/* Social Links */}
           <div className="flex flex-wrap gap-8 mt-10 lg:mt-16 2xl:mt-32">
             {socialLinks.map((link) => (
-              <a 
+              <a
                 key={link.label}
                 href={link.href}
-                className="text-white/30 hover:text-[#ff5b22] text-xl md:text-2xl font-bold tracking-widest transition-colors duration-300 relative group"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${link.label} (opens in a new tab)`}
+                className="text-white/60 hover:text-[#ff5b22] focus-visible:text-[#ff5b22] text-xl md:text-2xl font-bold tracking-widest transition-colors duration-300 relative group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff5b22] rounded"
               >
                 {link.label}
                 <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-[#ff5b22] transition-all duration-300 group-hover:w-full" />
@@ -102,13 +108,26 @@ export default function Contact() {
         <div className="flex flex-col justify-center w-full max-w-2xl lg:ml-auto">
           <form onSubmit={handleSubmit} className="flex flex-col gap-8 md:gap-12 2xl:gap-20">
             
+            {/* Honeypot — bots fill this, humans never see it */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="hidden"
+            />
+
             {/* Name Input */}
             <div className="relative group">
+              <label htmlFor="contact-name" className="sr-only">Your name</label>
               <input 
+                id="contact-name"
                 type="text" 
                 name="name"
-                placeholder="WHAT'S YOUR NAME?" 
-                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
+                autoComplete="name"
+                placeholder="WHAT&apos;S YOUR NAME?" 
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/45 font-bold italic"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -116,11 +135,14 @@ export default function Contact() {
             
             {/* Email Input */}
             <div className="relative group">
+              <label htmlFor="contact-email" className="sr-only">Your email address</label>
               <input 
+                id="contact-email"
                 type="email" 
                 name="email"
+                autoComplete="email"
                 placeholder="YOUR EMAIL?" 
-                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic"
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/45 font-bold italic"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -128,11 +150,13 @@ export default function Contact() {
 
             {/* Message Input */}
             <div className="relative group">
+              <label htmlFor="contact-message" className="sr-only">Tell me about your project</label>
               <textarea 
+                id="contact-message"
                 name="message"
                 placeholder="TELL ME ABOUT YOUR PROJECT" 
                 rows={3}
-                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/20 font-bold italic resize-none"
+                className="w-full bg-transparent border-b-2 border-white/10 pb-4 lg:pb-6 text-xl md:text-2xl 2xl:text-4xl text-white outline-none focus:border-[#ff5b22] transition-colors placeholder:text-white/45 font-bold italic resize-none"
                 required
                 disabled={status === "loading" || status === "success"}
               />
@@ -174,6 +198,13 @@ export default function Contact() {
               )}
             </motion.button>
             
+            {/* Announce submission state to assistive tech */}
+            <p aria-live="polite" className="sr-only">
+              {status === "loading" && "Sending your message"}
+              {status === "success" && "Message sent successfully"}
+              {status === "error" && "Something went wrong. Please try again."}
+            </p>
+
             {/* Web3Forms required hidden field to prevent redirect */}
             <input type="hidden" name="redirect" value="" />
             

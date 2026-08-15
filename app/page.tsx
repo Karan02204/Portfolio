@@ -45,16 +45,17 @@ export default function Home() {
   return (
     <main id="home" className="relative bg-[#131313] min-h-screen">
       
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
+      {/* Background (decorative — hidden from assistive tech) */}
+      <div className="fixed inset-0 z-0" aria-hidden="true">
         <img
-          src="https://res.cloudinary.com/dcwryqkis/image/upload/v1774509362/background.png"
+          src="https://res.cloudinary.com/dcwryqkis/image/upload/f_auto,q_auto/v1774509362/background.png"
+          alt=""
           className="w-full h-full object-cover"
         />
       </div>
 
       {/* Hero Section */}
-      <div className="relative z-10 snap-start">
+      <div id="hero-sentinel" className="relative z-10">
         <ScrollyExperience />
       </div>
 
@@ -151,9 +152,9 @@ export default function Home() {
             </div>
 
             {/* 🔥 FOCUS RAIL (CENTERED) */}
-            <div className="flex justify-center items-center w-full">
-              <div className="w-full">
-                
+            <div className="flex justify-center items-center w-full h-full min-h-0">
+              <div className="w-full h-full min-h-0">
+
                 <FocusRail
                   items={PROJECTS}
                   autoPlay={false}
