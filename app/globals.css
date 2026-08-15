@@ -20,7 +20,8 @@ body {
 html {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  scroll-behavior: smooth;
+  /* NOTE: no `scroll-behavior: smooth` — Lenis drives scrolling now and the
+     native smooth behaviour fights its rAF loop. */
 }
 
 .hide-scrollbar {

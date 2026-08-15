@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useLenis } from "lenis/react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TargetAndTransition, Variants } from "framer-motion";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 type MenuItem = {
   label: string;
@@ -114,6 +116,8 @@ const footerVariants: Variants = {
 
 // ── Single nav item ──────────────────────────────────────────────────────────
 function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
+  const lenis = useLenis();
+
   return (
     <motion.div
       variants={itemVariants}
@@ -140,11 +144,9 @@ function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
         onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
           e.preventDefault();
           const targetId = item.href.replace("#", "");
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: "smooth" });
-          }
           onClick();
+          // let the panel start closing before we move the page
+          window.setTimeout(() => scrollToSection(lenis, targetId), 120);
         }}
         variants={{
           rest:  { x: -32, color: "#ffffff" },
