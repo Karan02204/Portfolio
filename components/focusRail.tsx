@@ -29,20 +29,6 @@ function wrap(min: number, max: number, v: number) {
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 }
 
-const BASE_SPRING = {
-  type: "spring",
-  stiffness: 300,
-  damping: 30,
-  mass: 1,
-};
-
-const TAP_SPRING = {
-  type: "spring",
-  stiffness: 450,
-  damping: 18,
-  mass: 1,
-};
-
 export function FocusRail({
   items,
   initialIndex = 0,
@@ -51,15 +37,35 @@ export function FocusRail({
   interval = 4000,
   className,
 }: FocusRailProps) {
-  if (!items || items.length === 0) return null;
-
+  // NOTE: every hook must run before any early return, otherwise hook order
+  // changes between renders when `items` is empty. The guard lives at the
+  // bottom of this function instead.
   const [active, setActive] = React.useState(initialIndex);
   const [isHovering, setIsHovering] = React.useState(false);
-  const lastWheelTime = React.useRef<number>(0);
 
-  const count = items.length;
-  const activeIndex = wrap(0, count, active);
-  const activeItem = items[activeIndex];
+  // Card spacing has to scale with the card, not be a fixed pixel value —
+  // at 320px apart the cards nearly overlapped on narrow phones.
+  const stageRef = React.useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = React.useState(0);
+
+  React.useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const card = el.querySelector("[data-rail-card]");
+      setCardWidth(card ? card.getBoundingClientRect().width : 0);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const count = items?.length ?? 0;
+  const activeIndex = count > 0 ? wrap(0, count, active) : 0;
+  const activeItem = items?.[activeIndex];
 
   const handlePrev = React.useCallback(() => {
     if (!loop && active === 0) return;
@@ -90,7 +96,7 @@ export function FocusRail({
   };
 
   const onDragEnd = (
-    e: MouseEvent | TouchEvent | PointerEvent,
+    _e: MouseEvent | TouchEvent | PointerEvent,
     { offset, velocity }: PanInfo
   ) => {
     const swipe = swipePower(offset.x, velocity.x);
@@ -104,10 +110,16 @@ export function FocusRail({
 
   const visibleIndices = [-2, -1, 0, 1];
 
+  // Safe to bail out now that every hook above has run unconditionally.
+  if (!activeItem) return null;
+
   return (
     <div
       className={cn(
-        "group relative flex h-[1000px] w-full flex-col overflow-hidden bg-[#131313] text-white outline-none select-none overflow-x-hidden",
+        // h-full (not a fixed 1000px) so the rail never outgrows the h-screen
+        // section it sits in — a fixed height clipped the arrows and the
+        // "Visit" CTA on any viewport shorter than 1000px.
+        "group relative flex h-full max-h-full w-full min-h-0 flex-col justify-center overflow-hidden bg-[#131313] text-white outline-none select-none overflow-x-hidden",
         className
       )}
       onMouseEnter={() => setIsHovering(true)}
@@ -139,7 +151,8 @@ export function FocusRail({
       {/* Main */}
       <div className="relative z-10 flex flex-1 flex-col justify-center px-4 md:px-8">
         <motion.div
-          className="relative mx-auto flex h-[560px] w-full max-w-6xl items-center justify-center perspective-[1200px] cursor-grab active:cursor-grabbing"
+          ref={stageRef}
+          className="relative mx-auto flex h-[38vh] min-h-[220px] max-h-[560px] w-full max-w-6xl shrink items-center justify-center perspective-[1200px] cursor-grab active:cursor-grabbing"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.15}
@@ -155,7 +168,8 @@ export function FocusRail({
             const isCenter = offset === 0;
             const dist = Math.abs(offset);
 
-            const xOffset = offset * 320;
+            // 52% of card width keeps neighbours peeking out at every size
+            const xOffset = offset * (cardWidth > 0 ? cardWidth * 0.52 : 320);
             const zOffset = -dist * 180;
             const scale = isCenter ? 1 : 0.85;
             const rotateY = offset * -20;
@@ -167,9 +181,23 @@ export function FocusRail({
             return (
               <motion.div
                 key={item.id}
+                data-rail-card
+                role={isCenter ? undefined : "button"}
+                tabIndex={isCenter ? -1 : 0}
+                aria-label={isCenter ? undefined : `Show project: ${item.title}`}
+                aria-hidden={isCenter ? undefined : false}
+                onKeyDown={(e) => {
+                  if (isCenter) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActive((p) => p + offset);
+                  }
+                }}
                 className={cn(
-                  "absolute aspect-[16/9] w-[80vw] md:w-[70vw] lg:w-[60vw] 2xl:w-[1060px] rounded-2xl shadow-2xl transition-shadow duration-300",
-                  isCenter ? "z-20 shadow-white/10" : "z-10"
+                  // max-h keeps the 16/9 card inside the shrinking stage
+                  "absolute aspect-[16/9] max-h-full w-[86vw] md:w-[70vw] lg:w-[60vw] 2xl:w-[1060px] rounded-2xl shadow-2xl transition-shadow duration-300",
+                  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff5b22]",
+                  isCenter ? "z-20 shadow-white/10" : "z-10 cursor-pointer"
                 )}
                 initial={false}
                 animate={{
@@ -204,8 +232,8 @@ export function FocusRail({
         </motion.div>
 
         {/* Info */}
-        <div className="mx-auto mt-6 xl:mt-12 flex w-full max-w-[1300px] flex-col items-center justify-between gap-6 md:flex-row pointer-events-auto px-4 pl-[8vw] md:pl-[12vw] lg:pl-[20vw] xl:pl-[12vw] lg:pr-8 z-30">
-          <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left h-32 justify-center max-w-xl 2xl:max-w-2xl">
+        <div className="mx-auto mt-6 xl:mt-12 flex w-full max-w-[1300px] flex-col items-center justify-between gap-4 md:gap-6 md:flex-row pointer-events-auto px-4 md:pl-[12vw] lg:pl-[20vw] xl:pl-[12vw] lg:pr-8 z-30">
+          <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left min-h-[8rem] justify-center max-w-xl 2xl:max-w-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeItem.id}
@@ -219,7 +247,7 @@ export function FocusRail({
                   {activeItem.title}
                 </h2>
                 {activeItem.description && (
-                  <p className="text-white font-sans">
+                  <p className="text-white/90 font-sans text-sm md:text-base line-clamp-4">
                     {activeItem.description}
                   </p>
                 )}
@@ -229,19 +257,35 @@ export function FocusRail({
 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1 rounded-full bg-neutral-900/80 p-1 ring-1 ring-white/10 backdrop-blur-md">
-              <button onClick={handlePrev} className="rounded-full p-3 hover:bg-white/10">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous project"
+                className="rounded-full p-3 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5b22]"
+              >
                 <ChevronLeft className="h-5 w-5" />
               </button>
-              <span className="min-w-[40px] text-center text-xs font-mono text-neutral-500">
+              <span aria-live="polite" className="min-w-[40px] text-center text-xs font-mono text-neutral-500">
                 {activeIndex + 1} / {count}
               </span>
-              <button onClick={handleNext} className="rounded-full p-3 hover:bg-white/10">
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next project"
+                className="rounded-full p-3 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5b22]"
+              >
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
 
             {activeItem.href && (
-              <Link href={activeItem.href} className="flex items-center gap-2 bg-white px-5 py-3 rounded-full text-black">
+              <Link
+                href={activeItem.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${activeItem.title} (opens in a new tab)`}
+                className="flex items-center gap-2 bg-white px-5 py-3 rounded-full text-black transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5b22]"
+              >
                 Visit <ArrowUpRight className="h-4 w-4" />
               </Link>
             )}

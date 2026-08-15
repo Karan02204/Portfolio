@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const frontend = ["REACT", "NEXT.JS", "TYPESCRIPT", "TAILWINDCSS", "JAVASCRIPT", "HTML5", "CSS3", "FRAMERMOTION"];
 const backend = ["MONGODB", "EXPRESS", "NODE.JS", "POSTGRESQL"];
@@ -12,18 +12,24 @@ const r2 = [...backend, ...backend, ...backend];
 const r3 = [...tools, ...tools, ...tools];
 
 const MarqueeRow = ({ items, direction = 1, speed = 40, outlined = false }: { items: string[], direction?: number, speed?: number, outlined?: boolean }) => {
+  // Infinite horizontal motion is a vestibular trigger — hold the row still
+  // for anyone who has asked the OS to reduce motion.
+  const reduceMotion = useReducedMotion();
+
   return (
     <div className="flex overflow-visible w-full">
       <motion.div
         className="flex gap-16 items-center w-max pr-16" // pr-16 ensures boundary gap is symmetric to internal gap
-        animate={{
-          x: direction > 0 ? ["-33.333333%", "0%"] : ["0%", "-33.333333%"],
-        }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: speed,
-        }}
+        animate={
+          reduceMotion
+            ? { x: "-16.666666%" }
+            : { x: direction > 0 ? ["-33.333333%", "0%"] : ["0%", "-33.333333%"] }
+        }
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { repeat: Infinity, ease: "linear", duration: speed }
+        }
       >
         {items.map((item, i) => (
           <span 

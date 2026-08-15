@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent, useReducedMotion, MotionValue } from "framer-motion";
 
 const TOTAL_FRAMES = 240;
 
@@ -15,6 +15,7 @@ export function useImageSequence() {
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const gateFramesRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     const imgs: HTMLImageElement[] = [];
@@ -27,31 +28,44 @@ export function useImageSequence() {
     }
     setImages(imgs);
 
-    // Initial buffer load blocks the app until ready
-    const INITIAL_FRAMES = 40;
-    for (let i = 1; i <= INITIAL_FRAMES; i++) {
+    // Gate on an evenly-spread sample across the WHOLE timeline rather than
+    // the first 40 frames in order. Loading 1..40 meant a fast early scroll
+    // ran straight past the buffer into blank frames; a spread guarantees
+    // every part of the scrub has something to show while the rest streams in.
+    const GATE_COUNT = 40;
+    const step = Math.max(1, Math.floor(TOTAL_FRAMES / GATE_COUNT));
+    const gateFrames = new Set<number>();
+    for (let i = 1; i <= TOTAL_FRAMES; i += step) gateFrames.add(i);
+    gateFrames.add(1); // first frame must be present
+
+    const total = gateFrames.size;
+
+    gateFrames.forEach((i) => {
       const img = imgs[i - 1];
-      
+
       const onLoad = () => {
         loadedCount++;
-        setProgress(loadedCount / INITIAL_FRAMES);
-        
-        if (loadedCount === INITIAL_FRAMES) {
+        setProgress(loadedCount / total);
+
+        if (loadedCount === total) {
           setLoaded(true);
         }
       };
 
       img.onload = onLoad;
       img.onerror = onLoad; // move forward even on error
-      
+
       img.src = getFramePath(i);
-    }
+    });
+
+    gateFramesRef.current = gateFrames;
   }, []);
 
-  // Background stream remaining frames after the initial frames are loaded
+  // Background stream every remaining frame once the gate sample has landed
   useEffect(() => {
     if (loaded && images.length === TOTAL_FRAMES) {
-      for (let i = 41; i <= TOTAL_FRAMES; i++) {
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        if (gateFramesRef.current.has(i)) continue; // already requested
         images[i - 1].src = getFramePath(i);
       }
     }
@@ -70,6 +84,8 @@ export default function ScrollyCanvas({
   scrollYProgress?: MotionValue<number>;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
   
   // Use our optimized hook
   const { images, loaded: isLoaded, progress } = useImageSequence();
@@ -110,30 +126,60 @@ export default function ScrollyCanvas({
 
   useMotionValueEvent(currentFrame, "change", (latest) => {
     if (!isLoaded || images.length === 0) return;
+
+    // With reduced motion we pin to a single representative frame instead of
+    // scrubbing 240 of them past the viewport.
+    if (reduceMotion) return;
+
     const frameIndex = Math.min(
       numFrames - 1,
       Math.max(0, Math.floor(latest))
     );
-    requestAnimationFrame(() => renderScale(frameIndex));
+
+    // Coalesce to one paint per frame — scroll fires far faster than 60Hz
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      renderScale(frameIndex);
+    });
   });
 
   useEffect(() => {
-    const handleResize = () => {
-      if (canvasRef.current) {
-        canvasRef.current.width = window.innerWidth;
-        canvasRef.current.height = window.innerHeight;
-        const frameIndex = Math.floor(currentFrame.get());
-        if (isLoaded && images.length > 0) {
-            renderScale(frameIndex);
-        }
+    let timeout: number | undefined;
+
+    const resize = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      // Match the backing store to the device pixel ratio, otherwise the
+      // sequence renders at CSS resolution and looks soft on retina displays.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+
+      if (isLoaded && images.length > 0) {
+        const frameIndex = reduceMotion
+          ? 0
+          : Math.min(numFrames - 1, Math.max(0, Math.floor(currentFrame.get())));
+        renderScale(frameIndex);
       }
     };
-    
+
+    const handleResize = () => {
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(resize, 120);
+    };
+
+    resize();
     window.addEventListener("resize", handleResize);
-    handleResize(); 
-    
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isLoaded, images, currentFrame]);
+
+    return () => {
+      window.clearTimeout(timeout);
+      window.removeEventListener("resize", handleResize);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, images, currentFrame, reduceMotion, numFrames]);
 
   return (
     <div className="sticky top-0 h-screen w-full overflow-hidden">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLenis } from "lenis/react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TargetAndTransition, Variants } from "framer-motion";
@@ -108,14 +108,56 @@ const accentBarVariants: Variants = {
   open:   { scaleY: 1, transition: { ...BAR_SPRING, delay: 0.1 } },
 };
 
-// ── Footer variants ──────────────────────────────────────────────────────────
-const footerVariants: Variants = {
-  closed: { opacity: 0, y: 12, transition: { duration: 0.2 } },
-  open:   { opacity: 1, y: 0,  transition: { duration: 0.4, delay: 0.45, ease: "easeOut" as const } },
-};
+// ── Active section tracking ──────────────────────────────────────────────────
+// Sections live in two different scroll contexts (the hero on the page, the
+// rest inside a nested snap container), so an IntersectionObserver with a
+// viewport root is the reliable way to know what the user is looking at.
+function useActiveSection() {
+  const [activeId, setActiveId] = useState("home");
+
+  useEffect(() => {
+    // "#home" is the <main> wrapper, which always intersects — track the hero
+    // sentinel instead so it doesn't win every comparison.
+    const ids = MENU_ITEMS.map((i) =>
+      i.href === "#home" ? "hero-sentinel" : i.href.replace("#", "")
+    );
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) {
+          setActiveId(
+            visible.target.id === "hero-sentinel" ? "home" : visible.target.id
+          );
+        }
+      },
+      { threshold: [0.25, 0.5, 0.75] }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return activeId;
+}
 
 // ── Single nav item ──────────────────────────────────────────────────────────
-function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
+function NavItem({
+  item,
+  onClick,
+  isActive,
+}: {
+  item: MenuItem;
+  onClick: () => void;
+  isActive: boolean;
+}) {
   const lenis = useLenis();
 
   return (
@@ -129,7 +171,7 @@ function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
       {/* Arrow slides in from left on hover */}
       <motion.div
         variants={{
-          rest:  { x: -32, opacity: 0 },
+          rest:  isActive ? { x: 0, opacity: 1 } : { x: -32, opacity: 0 },
           hover: { x: 0,   opacity: 1 },
         }}
         transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -149,11 +191,14 @@ function NavItem({ item, onClick }: { item: MenuItem; onClick: () => void }) {
           window.setTimeout(() => scrollToSection(lenis, targetId), 120);
         }}
         variants={{
-          rest:  { x: -32, color: "#ffffff" },
+          rest:  isActive
+            ? { x: 0,   color: ACCENT }
+            : { x: -32, color: "#ffffff" },
           hover: { x: 0,   color: ACCENT },
         }}
         transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="font-bold text-4xl leading-none select-none"
+        aria-current={isActive ? "true" : undefined}
+        className="font-bold text-4xl leading-none select-none rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff5b22]"
         style={{ textDecoration: "none" }}
       >
         {item.label}
@@ -185,6 +230,7 @@ function HamburgerBar({
 // ── Root component ────────────────────────────────────────────────────────────
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const activeId = useActiveSection();
   const toggle = useCallback(() => setOpen(o => !o), []);
   const close  = useCallback(() => setOpen(false), []);
 
@@ -194,7 +240,8 @@ export default function Sidebar() {
       <button
         onClick={toggle}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="fixed top-6 left-6 z-[110] flex flex-col justify-center items-center w-10 h-10 gap-[7px]"
+        aria-expanded={open}
+        className="fixed top-6 left-6 z-[110] flex flex-col justify-center items-center w-10 h-10 gap-[7px] rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff5b22]"
       >
         <HamburgerBar animate={open ? { rotate: 45,  y: 9,  backgroundColor: ACCENT } : { rotate: 0, y: 0, backgroundColor: "#ffffff" }} />
         <HamburgerBar animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} />
@@ -251,7 +298,12 @@ export default function Sidebar() {
         {/* Nav items — stagger is driven by sidebarVariants */}
         <nav className="flex flex-col gap-7 pl-12 pr-6">
           {MENU_ITEMS.map((item) => (
-            <NavItem key={item.href} item={item} onClick={close} />
+            <NavItem
+              key={item.href}
+              item={item}
+              onClick={close}
+              isActive={activeId === item.href.replace("#", "")}
+            />
           ))}
         </nav>
       </motion.aside>
